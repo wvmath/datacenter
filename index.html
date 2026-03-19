@@ -1470,23 +1470,31 @@ function calc() {
     needle.setAttribute('x2', nx.toFixed(1));
     needle.setAttribute('y2', ny.toFixed(1));
 
-    // Filled arc from left edge to needle position
+    // Filled arc from needle position to the RIGHT edge (negative side)
+    // More cost = more fill from the right
     const r = 80;
-    const startX = 20, startY = 100; // leftmost point
-    const endX = 100 + r * Math.cos(angle);
-    const endY = 100 - r * Math.sin(angle);
-    const largeArc = score > 50 ? 1 : 0;
+    const endX = 180, endY = 100; // rightmost point (full negative)
+    const startX = 100 + r * Math.cos(angle);
+    const startY = 100 - r * Math.sin(angle);
+    const arcSpan = score; // how much of the arc is filled (0 = none, 100 = full)
+    const largeArc = arcSpan > 50 ? 1 : 0;
     const fill = document.getElementById('gauge-fill');
 
     // Color based on where the needle lands
     if (score > 67) {
       fill.setAttribute('stroke', '#e87470');  // red zone
     } else if (score > 33) {
-      fill.setAttribute('stroke', '#b0b4ba');  // neutral zone
+      fill.setAttribute('stroke', '#d4a020');  // amber/caution zone
     } else {
-      fill.setAttribute('stroke', '#4fa095');  // positive zone
+      fill.setAttribute('stroke', '#4fa095');  // still in positive zone
     }
-    fill.setAttribute('d', `M ${startX} ${startY} A ${r} ${r} 0 ${largeArc} 1 ${endX.toFixed(1)} ${endY.toFixed(1)}`);
+
+    if (score < 1) {
+      fill.setAttribute('d', ''); // nothing to fill
+    } else {
+      // Draw arc from needle position clockwise to the right edge
+      fill.setAttribute('d', `M ${startX.toFixed(1)} ${startY.toFixed(1)} A ${r} ${r} 0 ${largeArc} 1 ${endX} ${endY}`);
+    }
 
     // Score display
     const scoreEl = document.getElementById('gauge-score');
