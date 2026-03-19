@@ -1229,7 +1229,8 @@ function flash(id) {
 
 // ── MAIN CALCULATION ───────────────────────────────────────
 function calc() {
-  const gw       = parseFloat(document.getElementById('gw').value) || 0.6;
+  const gwRaw    = parseFloat(document.getElementById('gw').value);
+  const gw       = isNaN(gwRaw) ? 0.6 : gwRaw;
   const hostIdx  = BERKELEY_IDX; // Bedington Campus — always Berkeley County
   const homeIdx  = parseInt(document.getElementById('home-county').value);
   const cooling  = document.getElementById('cooling').value;
