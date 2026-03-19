@@ -968,17 +968,30 @@
             <span class="gauge-legend-item"><span class="gauge-legend-swatch neut"></span> Neutral</span>
             <span class="gauge-legend-item"><span class="gauge-legend-swatch neg"></span> Negative</span>
           </div>
-          <svg class="gauge-svg" viewBox="0 0 200 120" aria-hidden="true">
-            <!-- Background track: positive (left), neutral (center), negative (right) -->
-            <path d="M 20 100 A 80 80 0 0 1 66.7 30.7" fill="none" stroke="#8adbc8" stroke-width="18" stroke-linecap="round"/>
-            <path d="M 72 27.5 A 80 80 0 0 1 128 27.5" fill="none" stroke="#d5d8dc" stroke-width="18"/>
-            <path d="M 133.3 30.7 A 80 80 0 0 1 180 100" fill="none" stroke="#f4a5a0" stroke-width="18" stroke-linecap="round"/>
-            <!-- Filled arc (dynamic) -->
-            <path id="gauge-fill" d="" fill="none" stroke-width="18" stroke-linecap="round"/>
-            <!-- Center dot -->
-            <circle cx="100" cy="100" r="4" fill="var(--ink-faint)"/>
+          <svg class="gauge-svg" viewBox="0 0 200 115" aria-hidden="true">
+            <defs>
+              <linearGradient id="gauge-bg-grad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#8adbc8"/>
+                <stop offset="40%" stop-color="#d5d8dc"/>
+                <stop offset="100%" stop-color="#f4a5a0"/>
+              </linearGradient>
+            </defs>
+            <!-- Background track (single arc with gradient) -->
+            <path id="gauge-bg" d="M 20 100 A 80 80 0 0 1 180 100"
+              fill="none" stroke="url(#gauge-bg-grad)" stroke-width="16"
+              stroke-linecap="round" opacity="0.35"/>
+            <!-- Colored fill arc (same path, clipped by dasharray) -->
+            <path id="gauge-fill" d="M 20 100 A 80 80 0 0 1 180 100"
+              fill="none" stroke="#e87470" stroke-width="16"
+              stroke-linecap="round"
+              style="transition: stroke-dashoffset 0.4s ease-out, stroke 0.3s;"/>
             <!-- Needle -->
-            <line id="gauge-needle" x1="100" y1="100" x2="100" y2="28" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round"/>
+            <line id="gauge-needle" x1="100" y1="100" x2="20" y2="100"
+              stroke="var(--ink)" stroke-width="2" stroke-linecap="round"
+              style="transition: transform 0.4s ease-out; transform-origin: 100px 100px;"/>
+            <!-- Center dot -->
+            <circle cx="100" cy="100" r="5" fill="var(--surface)"/>
+            <circle cx="100" cy="100" r="3.5" fill="var(--ink-faint)"/>
           </svg>
           <div class="gauge-score" id="gauge-score">—</div>
           <div class="gauge-sublabel" id="gauge-sublabel">per household per year</div>
@@ -1455,46 +1468,34 @@ function calc() {
 
   // ── RENDER: gauge visualization ──────────────────────────
   {
-    // Map net per household to 0-100 scale (inverted: left=positive, right=negative)
-    // Range: +$400 (0, far left/positive) to -$800 (100, far right/negative)
-    const gaugeMin = 400, gaugeMax = -800;
-    const raw = Math.max(gaugeMax, Math.min(gaugeMin, netPerHousehold));
-    const score = ((gaugeMin - raw) / (gaugeMin - gaugeMax)) * 100;
+    // score: 0 = far left (positive, +$400), 100 = far right (negative, -$800)
+    const raw = Math.max(-800, Math.min(400, netPerHousehold));
+    const score = ((400 - raw) / 1200) * 100; // 0-100, higher = worse
 
-    // Needle angle: 180° (left, score=0) to 0° (right, score=100)
-    const angle = Math.PI - (score / 100) * Math.PI;
-    const needleLen = 68;
-    const nx = 100 + needleLen * Math.cos(angle);
-    const ny = 100 - needleLen * Math.sin(angle);
-    const needle = document.getElementById('gauge-needle');
-    needle.setAttribute('x2', nx.toFixed(1));
-    needle.setAttribute('y2', ny.toFixed(1));
-
-    // Filled arc from needle position to the RIGHT edge (negative side)
-    // More cost = more fill from the right
-    const r = 80;
-    const endX = 180, endY = 100; // rightmost point (full negative)
-    const startX = 100 + r * Math.cos(angle);
-    const startY = 100 - r * Math.sin(angle);
-    const arcSpan = score; // how much of the arc is filled (0 = none, 100 = full)
-    const largeArc = arcSpan > 50 ? 1 : 0;
+    // Arc length: semicircle with r=80 → π * 80 ≈ 251.33
+    const arcLen = Math.PI * 80;
     const fill = document.getElementById('gauge-fill');
+    const fillAmount = (score / 100) * arcLen;
 
-    // Color based on where the needle lands
+    // Set dasharray: filled portion + rest hidden
+    fill.setAttribute('stroke-dasharray', `${fillAmount.toFixed(1)} ${arcLen.toFixed(1)}`);
+    fill.setAttribute('stroke-dashoffset', '0');
+
+    // Color transitions through the zones
     if (score > 67) {
-      fill.setAttribute('stroke', '#e87470');  // red zone
+      fill.setAttribute('stroke', '#e87470');
     } else if (score > 33) {
-      fill.setAttribute('stroke', '#d4a020');  // amber/caution zone
+      fill.setAttribute('stroke', '#d4a020');
+    } else if (score > 10) {
+      fill.setAttribute('stroke', '#8adbc8');
     } else {
-      fill.setAttribute('stroke', '#4fa095');  // still in positive zone
+      fill.setAttribute('stroke', '#4fa095');
     }
 
-    if (score < 1) {
-      fill.setAttribute('d', ''); // nothing to fill
-    } else {
-      // Draw arc from needle position clockwise to the right edge
-      fill.setAttribute('d', `M ${startX.toFixed(1)} ${startY.toFixed(1)} A ${r} ${r} 0 ${largeArc} 1 ${endX} ${endY}`);
-    }
+    // Needle: rotate from 0° (pointing left/positive) to 180° (pointing right/negative)
+    const needleDeg = (score / 100) * 180;
+    const needle = document.getElementById('gauge-needle');
+    needle.style.transform = `rotate(${needleDeg.toFixed(1)}deg)`;
 
     // Score display
     const scoreEl = document.getElementById('gauge-score');
