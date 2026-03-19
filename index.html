@@ -299,8 +299,11 @@
   }
 
   .net-verdict.risk      { border-left-color: var(--red); }
+  .net-verdict.risk summary { background: var(--red-pale); border-bottom-color: var(--red-light); }
   .net-verdict.mixed     { border-left-color: var(--amber); }
+  .net-verdict.mixed summary { background: var(--amber-pale); border-bottom-color: var(--amber-light); }
   .net-verdict.favorable { border-left-color: var(--teal); }
+  .net-verdict.favorable summary { background: var(--teal-pale); border-bottom-color: var(--teal-light); }
 
   .net-verdict summary {
     padding: 0.6rem 1rem;
@@ -486,7 +489,7 @@
     color: var(--ink-faint);
   }
 
-  .money-header.out { color: var(--red); }
+  .money-header.out { background: var(--red-pale); color: var(--red); border-bottom-color: var(--red-light); }
 
   .money-body { padding: 0.25rem 1rem 0.5rem; }
 
