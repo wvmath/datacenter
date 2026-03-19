@@ -964,15 +964,15 @@
         <div class="card-header">Net household impact</div>
         <div class="gauge-body">
           <div class="gauge-legend">
-            <span class="gauge-legend-item"><span class="gauge-legend-swatch neg"></span> Negative</span>
-            <span class="gauge-legend-item"><span class="gauge-legend-swatch neut"></span> Neutral</span>
             <span class="gauge-legend-item"><span class="gauge-legend-swatch pos"></span> Positive</span>
+            <span class="gauge-legend-item"><span class="gauge-legend-swatch neut"></span> Neutral</span>
+            <span class="gauge-legend-item"><span class="gauge-legend-swatch neg"></span> Negative</span>
           </div>
           <svg class="gauge-svg" viewBox="0 0 200 120" aria-hidden="true">
-            <!-- Background track: negative (left), neutral (center), positive (right) -->
-            <path d="M 20 100 A 80 80 0 0 1 66.7 30.7" fill="none" stroke="#f4a5a0" stroke-width="18" stroke-linecap="round"/>
+            <!-- Background track: positive (left), neutral (center), negative (right) -->
+            <path d="M 20 100 A 80 80 0 0 1 66.7 30.7" fill="none" stroke="#8adbc8" stroke-width="18" stroke-linecap="round"/>
             <path d="M 72 27.5 A 80 80 0 0 1 128 27.5" fill="none" stroke="#d5d8dc" stroke-width="18"/>
-            <path d="M 133.3 30.7 A 80 80 0 0 1 180 100" fill="none" stroke="#8adbc8" stroke-width="18" stroke-linecap="round"/>
+            <path d="M 133.3 30.7 A 80 80 0 0 1 180 100" fill="none" stroke="#f4a5a0" stroke-width="18" stroke-linecap="round"/>
             <!-- Filled arc (dynamic) -->
             <path id="gauge-fill" d="" fill="none" stroke-width="18" stroke-linecap="round"/>
             <!-- Center dot -->
@@ -1455,10 +1455,11 @@ function calc() {
 
   // ── RENDER: gauge visualization ──────────────────────────
   {
-    // Map net per household to 0-100 scale. Range: -$800 (0) to +$400 (100), $0 = 66.7
-    const gaugeMin = -800, gaugeMax = 400;
-    const raw = Math.max(gaugeMin, Math.min(gaugeMax, netPerHousehold));
-    const score = ((raw - gaugeMin) / (gaugeMax - gaugeMin)) * 100;
+    // Map net per household to 0-100 scale (inverted: left=positive, right=negative)
+    // Range: +$400 (0, far left/positive) to -$800 (100, far right/negative)
+    const gaugeMin = 400, gaugeMax = -800;
+    const raw = Math.max(gaugeMax, Math.min(gaugeMin, netPerHousehold));
+    const score = ((gaugeMin - raw) / (gaugeMin - gaugeMax)) * 100;
 
     // Needle angle: 180° (left, score=0) to 0° (right, score=100)
     const angle = Math.PI - (score / 100) * Math.PI;
@@ -1470,20 +1471,20 @@ function calc() {
     needle.setAttribute('y2', ny.toFixed(1));
 
     // Filled arc from left edge to needle position
-    const fillAngle = Math.PI - (score / 100) * Math.PI;
     const r = 80;
     const startX = 20, startY = 100; // leftmost point
-    const endX = 100 + r * Math.cos(fillAngle);
-    const endY = 100 - r * Math.sin(fillAngle);
+    const endX = 100 + r * Math.cos(angle);
+    const endY = 100 - r * Math.sin(angle);
     const largeArc = score > 50 ? 1 : 0;
     const fill = document.getElementById('gauge-fill');
 
-    if (score < 33) {
-      fill.setAttribute('stroke', '#e87470');
-    } else if (score < 67) {
-      fill.setAttribute('stroke', '#b0b4ba');
+    // Color based on where the needle lands
+    if (score > 67) {
+      fill.setAttribute('stroke', '#e87470');  // red zone
+    } else if (score > 33) {
+      fill.setAttribute('stroke', '#b0b4ba');  // neutral zone
     } else {
-      fill.setAttribute('stroke', '#4fa095');
+      fill.setAttribute('stroke', '#4fa095');  // positive zone
     }
     fill.setAttribute('d', `M ${startX} ${startY} A ${r} ${r} 0 ${largeArc} 1 ${endX.toFixed(1)} ${endY.toFixed(1)}`);
 
@@ -1491,7 +1492,7 @@ function calc() {
     const scoreEl = document.getElementById('gauge-score');
     const sign = netPerHousehold >= 0 ? '+' : '\u2212';
     scoreEl.textContent = sign + fmt(Math.abs(netPerHousehold)) + '/yr';
-    scoreEl.className = 'gauge-score ' + (score < 33 ? 'neg' : score < 67 ? 'neut' : 'pos');
+    scoreEl.className = 'gauge-score ' + (score > 67 ? 'neg' : score > 33 ? 'neut' : 'pos');
 
     document.getElementById('gauge-sublabel').textContent =
       netPerHousehold >= 0
