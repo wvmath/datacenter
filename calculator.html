@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WV Data Center: The Full Picture</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:            #f0f2f5;
+    --surface:       #ffffff;
+    --surface-alt:   #f7f9fb;
+    --ink:           #1a2332;
+    --ink-light:     #3d4f63;
+    --ink-faint:     #7a8fa6;
+    --teal:          #1b9e8a;
+    --teal-light:    #2bbfa4;
+    --teal-pale:     #e6f7f4;
+    --red:           #c93535;
+    --red-light:     #e04444;
+    --red-pale:      #fef0f0;
+    --amber:         #b07d1a;
+    --amber-light:   #d4a020;
+    --amber-pale:    #fef7e6;
+    --border:        rgba(30,50,80,0.09);
+    --border-strong: rgba(30,50,80,0.17);
+    --sidebar:       #1a5c52;
+    --sidebar-text:  rgba(255,255,255,0.92);
+    --sidebar-muted: rgba(255,255,255,0.52);
+    --sidebar-bdr:   rgba(255,255,255,0.14);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { background: var(--bg); }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    min-height: 100vh;
+  }
+
+  .wrapper {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 1.25rem 1.5rem 4rem;
+  }
+
+  /* ── HEADER ─────────────────────────────────── */
+
+  header {
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-strong);
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 1.5rem;
+  }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.63rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--amber);
+    width: 100%;
+    margin-bottom: 0.25rem;
+  }
+
+  h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+
+  .h1-accent { color: var(--teal); }
+
+  .thesis {
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--ink-light);
+    flex: 1;
+    min-width: 280px;
+  }
+
+  .thesis strong { color: var(--ink); font-weight: 600; }
+
+  /* ── PAGE LAYOUT ─────────────────────────────── */
+
+  .page-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 1.25rem;
+    align-items: start;
+  }
+
+  /* ── SIDEBAR ─────────────────────────────────── */
+
+  .sidebar {
+    position: sticky;
+    top: 1.5rem;
+    max-height: calc(100vh - 3rem);
+    overflow-y: auto;
+    background: var(--sidebar);
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(26,92,82,0.22);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.18) transparent;
+  }
+
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.18); border-radius: 2px; }
+
+  .sidebar-inner { padding: 1rem 1.25rem; }
+
+  .sidebar-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+    color: var(--sidebar-muted);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .sidebar-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--sidebar-bdr);
+  }
+
+  .input-group { margin-bottom: 0.85rem; }
+
+  .input-group label {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.63rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sidebar-text);
+    margin-bottom: 0.3rem;
+  }
+
+  .input-group .hint {
+    font-size: 0.6rem;
+    color: var(--sidebar-muted);
+    margin-top: 0.2rem;
+    line-height: 1.4;
+    font-style: italic;
+  }
+
+  select.sidebar-select {
+    width: 100%;
+    padding: 0.45rem 2rem 0.45rem 0.65rem;
+    background: rgba(255,255,255,0.10);
+    border: 1px solid var(--sidebar-bdr);
+    border-radius: 5px;
+    color: var(--sidebar-text);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(255,255,255,0.55)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.65rem center;
+    transition: border-color 0.15s;
+    outline: none;
+  }
+
+  select.sidebar-select:focus-visible {
+    outline: 2px solid rgba(255,255,255,0.65);
+    outline-offset: 1px;
+  }
+
+  select.sidebar-select option { background: #1a3d36; color: #fff; }
+
+  .slider-value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 0.15rem;
+  }
+
+  .slider-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem;
+    color: var(--sidebar-muted);
+    margin-bottom: 0.3rem;
+  }
+
+  input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+    display: block;
+  }
+
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px; height: 18px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+  }
+
+  input[type=range]::-moz-range-thumb {
+    width: 18px; height: 18px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+  }
+
+  input[type=range]:focus-visible {
+    outline: 2px solid rgba(255,255,255,0.65);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    input[type=range]::-webkit-slider-thumb { width: 44px; height: 44px; }
+    input[type=range]::-moz-range-thumb     { width: 44px; height: 44px; }
+  }
+
+  .reset-btn {
+    width: 100%;
+    padding: 0.55rem;
+    background: transparent;
+    border: 1px solid var(--sidebar-bdr);
+    border-radius: 5px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.63rem;
+    letter-spacing: 0.05em;
+    color: var(--sidebar-muted);
+    cursor: pointer;
+    margin-top: 0.25rem;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .reset-btn:hover { background: rgba(255,255,255,0.08); color: var(--sidebar-text); }
+  .reset-btn:focus-visible { outline: 2px solid rgba(255,255,255,0.65); outline-offset: 2px; }
+
+  /* ── MAIN CONTENT ────────────────────────────── */
+
+  .main-content { min-width: 0; }
+
+  /* ── NET VERDICT ─────────────────────────────── */
+
+  .net-verdict {
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    border: 1px solid;
+    border-left-width: 4px;
+  }
+
+  .net-verdict.risk     { background: var(--red-pale);   border-color: var(--red-light);   border-left-color: var(--red); }
+  .net-verdict.mixed    { background: var(--amber-pale);  border-color: var(--amber-light);  border-left-color: var(--amber); }
+  .net-verdict.favorable{ background: var(--teal-pale);   border-color: var(--teal-light);   border-left-color: var(--teal); }
+
+  .net-verdict summary {
+    padding: 0.45rem 0.75rem;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    user-select: none;
+  }
+
+  .net-verdict summary::-webkit-details-marker { display: none; }
+
+  .net-verdict summary:focus-visible {
+    outline: 2px solid var(--ink-faint);
+    outline-offset: -2px;
+    border-radius: 5px;
+  }
+
+  .verdict-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    line-height: 1.2;
+    flex: 1;
+  }
+
+  .verdict-arrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.55rem;
+    color: var(--ink-faint);
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+    letter-spacing: 0.05em;
+  }
+
+  .net-verdict[open] .verdict-arrow { transform: rotate(180deg); }
+
+  .verdict-sub {
+    font-size: 0.73rem;
+    color: var(--ink-light);
+    line-height: 1.5;
+    max-width: 620px;
+    padding: 0 0.75rem 0.6rem;
+  }
+
+  /* ── ENVIRONMENTAL CARDS ─────────────────────── */
+
+  .env-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .env-card {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  }
+
+  .env-card-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .env-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+    font-weight: 600;
+    color: var(--red);
+    line-height: 1;
+  }
+
+  .env-unit {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem;
+    color: var(--ink-faint);
+    margin-top: 0.15rem;
+  }
+
+  .env-human {
+    font-size: 0.72rem;
+    color: var(--ink-light);
+    margin-top: 0.4rem;
+    line-height: 1.4;
+    padding-top: 0.4rem;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── MONEY PANELS ────────────────────────────── */
+
+  .money-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .money-panel {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  }
+
+  .money-header {
+    padding: 0.5rem 1rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .money-header.in  { background: var(--teal-pale);  color: var(--teal); border-bottom: 2px solid var(--teal-light); }
+  .money-header.out { background: var(--red-pale);   color: var(--red);  border-bottom: 2px solid var(--red-light); }
+
+  .money-body { padding: 0.25rem 1rem 0.5rem; }
+
+  .money-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .money-row:last-child { border-bottom: none; }
+
+  .money-label {
+    font-size: 0.75rem;
+    color: var(--ink-light);
+    flex: 1;
+    line-height: 1.3;
+  }
+
+  .money-label .sub {
+    font-size: 0.63rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin-top: 0.1rem;
+  }
+
+  .money-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 600;
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  .money-val.pos    { color: var(--teal); }
+  .money-val.neg    { color: var(--red); }
+  .money-val.caution{ color: var(--amber); }
+
+  /* ── SCORECARD ────────────────────────────────── */
+
+  .scorecard {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 0.75rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  }
+
+  .scorecard-header {
+    padding: 0.5rem 1rem;
+    background: var(--amber-pale);
+    border-bottom: 2px solid var(--amber-light);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 600;
+  }
+
+  .scorecard-body { padding: 0.1rem 1rem 0.25rem; }
+
+  .factor-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .factor-row:last-child { border-bottom: none; }
+
+  .factor-icon   { font-size: 0.85rem; width: 1.1rem; text-align: center; flex-shrink: 0; }
+  .factor-label  { flex: 1; font-size: 0.73rem; color: var(--ink-light); }
+
+  .factor-bar-wrap {
+    width: 90px; height: 6px;
+    background: var(--bg);
+    border-radius: 3px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .factor-bar { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+
+  .factor-verdict {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 600;
+    width: 44px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* ── DEMANDS ─────────────────────────────────── */
+
+  .demands {
+    background: var(--ink);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 0.75rem;
+  }
+
+  .demands-header {
+    padding: 0.5rem 1.25rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+  }
+
+  .demands-header::-webkit-details-marker { display: none; }
+  .demands-header:hover { background: rgba(255,255,255,0.04); }
+  .demands-header:focus-visible { outline: 2px solid rgba(255,255,255,0.5); outline-offset: -2px; }
+  .demands[open] .demands-header { border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .demands[open] .demands-header .verdict-arrow { transform: rotate(180deg); }
+
+  .demands-body {
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .demand { display: flex; gap: 1rem; }
+
+  .demand-n {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--teal-light);
+    opacity: 0.75;
+    width: 1.5rem;
+    flex-shrink: 0;
+    padding-top: 0.1rem;
+  }
+
+  .demand-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.63rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #fff;
+    margin-bottom: 0.1rem;
+  }
+
+  .demand-text {
+    font-size: 0.73rem;
+    color: rgba(255,255,255,0.58);
+    line-height: 1.45;
+  }
+
+  /* ── METHODOLOGY ─────────────────────────────── */
+
+  .methodology {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .methodology summary {
+    padding: 1rem 1.25rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--teal);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    user-select: none;
+  }
+
+  .methodology summary:hover { background: var(--teal-pale); }
+  .methodology summary:focus-visible { outline: 2px solid var(--teal); outline-offset: -2px; }
+  .methodology summary::after { content: '▼'; font-size: 0.6rem; }
+  .methodology[open] summary::after { content: '▲'; }
+
+  .methodology-body {
+    padding: 1.25rem;
+    border-top: 1px solid var(--border-strong);
+    background: var(--surface-alt);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .method-item { display: flex; gap: 1rem; font-size: 0.82rem; color: var(--ink-light); line-height: 1.6; }
+  .method-key {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--teal);
+    white-space: nowrap;
+    min-width: 110px;
+    padding-top: 0.1rem;
+  }
+
+  /* ── FOOTER ──────────────────────────────────── */
+
+  footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-strong);
+    font-size: 0.73rem;
+    color: var(--ink-faint);
+    text-align: center;
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  /* ── ANIMATIONS ──────────────────────────────── */
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .wrapper > * { animation: fadeUp 0.45s ease both; }
+  .wrapper > *:nth-child(2) { animation-delay: 0.08s; }
+  .wrapper > *:nth-child(3) { animation-delay: 0.16s; }
+
+  @keyframes flash { 0%,100% { opacity: 1; } 40% { opacity: 0.8; } }
+  .flash { animation: flash 0.4s ease; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wrapper > * { animation: none !important; }
+    .factor-bar  { transition: none !important; }
+    .flash       { animation: none !important; }
+  }
+
+  /* ── RESPONSIVE ──────────────────────────────── */
+
+  @media (max-width: 900px) {
+    .env-cards { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    .page-layout { grid-template-columns: 1fr; }
+    .sidebar { position: static; max-height: none; }
+    .env-cards { grid-template-columns: 1fr 1fr; }
+    .money-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    .env-cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header>
+    <p class="eyebrow">Bedington Campus &middot; Berkeley County, WV &middot; Community Impact</p>
+    <h1>Data Center. <span class="h1-accent">Full Picture.</span></h1>
+    <p class="thesis"><a href="https://linvilleforwv.com/datacentertool/" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:underline;text-underline-offset:2px">Delegate Linville's calculator</a> shows what your county receives.
+    <strong>This one adds what you pay</strong> — on your electricity bill, in your watershed,
+    and in the air above your neighborhood. Pre-loaded with the Penzance &ldquo;High Impact Intelligence Center&rdquo; at Bedington: $4B, 600&nbsp;MW, 548&nbsp;acres.
+    Penzance and the Commerce Department have <a href="https://www.wvgazettemail.com/news/legislative_session/morrisey-administration-penzance-wont-give-basic-berkeley-county-project-details/article_271d281d-fcf7-445e-9e3d-7763dfc7a304.html" target="_blank" rel="noopener" style="color:var(--red);text-decoration:underline;text-underline-offset:2px">refused to disclose</a> water usage plans, environmental assessments, or application materials.</p>
+  </header>
+
+  <div class="page-layout">
+
+    <!-- ── SIDEBAR ──────────────────────────────── -->
+    <aside class="sidebar" aria-label="Calculator controls">
+      <div class="sidebar-inner">
+        <p class="sidebar-title">Configure the project</p>
+
+        <div class="input-group">
+          <label for="home-county">Your county</label>
+          <select id="home-county" class="sidebar-select" onchange="calc()">
+            <!-- filled by JS -->
+          </select>
+          <p class="hint">Where you live — determines your share of the statewide tax distribution and your net cost.</p>
+        </div>
+
+        <div class="input-group">
+          <label id="gw-label" for="gw">Project size</label>
+          <div class="slider-value" id="gw-display" aria-live="polite">0.6 GW</div>
+          <div class="slider-sub" id="gw-sub">600 MW &middot; Penzance proposal ($4B announced)</div>
+          <input type="range" id="gw"
+            min="0.1" max="1.5" step="0.1" value="0.6"
+            aria-labelledby="gw-label"
+            aria-valuetext="0.6 gigawatts"
+            oninput="updateGW()">
+          <p class="hint">Bedington: 0.6 GW. HB 2014 threshold: 0.09 GW. Slide right to see what a larger facility would cost your community.</p>
+        </div>
+
+        <div class="input-group">
+          <label for="cooling">Cooling method</label>
+          <select id="cooling" class="sidebar-select" onchange="calc()">
+            <option value="evaporative">Evaporative (water-cooled)</option>
+            <option value="hybrid">Hybrid</option>
+            <option value="air">Air-cooled</option>
+          </select>
+          <p class="hint">Water-cooled uses roughly 10&times; more water than air-cooled.</p>
+        </div>
+
+        <div class="input-group">
+          <label for="exemption">HB 2014 tax incentives</label>
+          <select id="exemption" class="sidebar-select" onchange="calc()">
+            <option value="full">None &mdash; full property tax rate</option>
+            <option value="partial" selected>Partial (~40% reduction)</option>
+            <option value="heavy">Heavy (~70% reduction)</option>
+          </select>
+          <p class="hint">HB 2014 allows private power grids, exempts from local zoning, and shields project details from public disclosure. The legislature rejected amendments requiring water impact assessments.</p>
+        </div>
+
+        <button type="button" class="reset-btn" onclick="resetToDefaults()">
+          &#x21BA; Reset to Bedington defaults
+        </button>
+      </div>
+    </aside>
+
+    <!-- ── MAIN CONTENT ──────────────────────────── -->
+    <main class="main-content">
+
+      <!-- Net verdict -->
+      <details class="net-verdict risk" id="net-verdict" role="status" aria-live="polite">
+        <summary>
+          <span class="verdict-label" id="verdict-label">—</span>
+          <span class="verdict-arrow" aria-hidden="true">&#9660;</span>
+        </summary>
+        <p class="verdict-sub" id="verdict-sub">Configure the controls to see the assessment.</p>
+      </details>
+
+      <!-- Environmental impact at a glance -->
+      <div class="env-cards">
+        <div class="env-card">
+          <div class="env-card-label"><span aria-hidden="true">💧</span> Water draw</div>
+          <div class="env-num" id="env-water">—</div>
+          <div class="env-unit">gallons per day</div>
+          <div class="env-human" id="env-water-human">—</div>
+        </div>
+        <div class="env-card">
+          <div class="env-card-label"><span aria-hidden="true">☁</span> CO₂ per year</div>
+          <div class="env-num" id="env-co2">—</div>
+          <div class="env-unit">metric tons annually</div>
+          <div class="env-human" id="env-co2-human">—</div>
+        </div>
+        <div class="env-card">
+          <div class="env-card-label"><span aria-hidden="true">⚡</span> Grid consumption</div>
+          <div class="env-num" id="env-grid">—</div>
+          <div class="env-unit">of WV's current grid</div>
+          <div class="env-human" id="env-grid-human">—</div>
+        </div>
+      </div>
+
+      <!-- Revenue: what flows in vs what you pay -->
+      <div class="money-grid">
+        <div class="money-panel">
+          <div class="money-header in">What Linville's calculator shows</div>
+          <div class="money-body" id="money-in"
+            aria-live="polite" aria-label="Revenue flowing to counties"></div>
+        </div>
+        <div class="money-panel">
+          <div class="money-header out">What it costs your household</div>
+          <div class="money-body" id="money-out"
+            aria-live="polite" aria-label="Household costs and bill increases"></div>
+        </div>
+      </div>
+
+      <!-- Scorecard -->
+      <div class="scorecard">
+        <div class="scorecard-header">Community impact scorecard &mdash; what the tax calculator doesn't count</div>
+        <div class="scorecard-body" id="scorecard-body"
+          aria-live="polite" aria-label="Community impact scorecard"></div>
+      </div>
+
+      <!-- What to demand -->
+      <details class="demands">
+        <summary class="demands-header">Before any permit moves forward &mdash; six things to demand in writing <span class="verdict-arrow" aria-hidden="true" style="color:rgba(255,255,255,0.35)">&#9660;</span></summary>
+        <div class="demands-body">
+          <div class="demand">
+            <div class="demand-n">01</div>
+            <div>
+              <div class="demand-title">Ratepayer protection</div>
+              <div class="demand-text">A binding agreement that grid upgrade costs are not socialized onto residential utility bills — signed before permits are approved, not after.</div>
+            </div>
+          </div>
+          <div class="demand">
+            <div class="demand-n">02</div>
+            <div>
+              <div class="demand-title">Water permit transparency</div>
+              <div class="demand-text">Penzance has refused to disclose water usage plans. The legislature rejected amendments requiring water impact assessments. Regional DC growth could reach 200M gal/day from the Potomac by 2050. Require full documentation before construction.</div>
+            </div>
+          </div>
+          <div class="demand">
+            <div class="demand-n">03</div>
+            <div>
+              <div class="demand-title">Funded decommissioning bond</div>
+              <div class="demand-text">A fully funded trust covering grid infrastructure, building removal, and land restoration — established before breaking ground.</div>
+            </div>
+          </div>
+          <div class="demand">
+            <div class="demand-n">04</div>
+            <div>
+              <div class="demand-title">Enforceable local hiring</div>
+              <div class="demand-text">Binding targets with a funded retraining program and real penalties for non-compliance. A press release is not a contract.</div>
+            </div>
+          </div>
+          <div class="demand">
+            <div class="demand-n">05</div>
+            <div>
+              <div class="demand-title">Noise and emissions limits</div>
+              <div class="demand-text">Legally binding decibel limits measured at the property boundary, 24/7 emissions monitoring, and a renewable energy transition timeline.</div>
+            </div>
+          </div>
+          <div class="demand">
+            <div class="demand-n">06</div>
+            <div>
+              <div class="demand-title">Full public disclosure</div>
+              <div class="demand-text">HB 2014 shields project applications from public review. As Del. Young noted: &ldquo;There&rsquo;s no way to appeal something you don&rsquo;t know exists.&rdquo; Require full application materials, exemption terms, and environmental assessments be made public.</div>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- Methodology -->
+      <details class="methodology">
+        <summary>Methodology &amp; sources</summary>
+        <div class="methodology-body">
+          <div class="method-item">
+            <span class="method-key">Tax revenue</span>
+            <span>Matches Delegate Linville's HB&nbsp;2014 methodology: $10B/GW real property at 60% assessed value + $30B/GW equipment at 3% salvage. Average WV levy rate ~$1.80/$100 assessed. HB&nbsp;2014 distribution: 30% host county, 10% all 55 counties by population, 50% income tax relief, 5% water fund, 5% grid fund. Source: WV Legislature, WV State Tax Department FY26 levy rates.</span>
+          </div>
+          <div class="method-item">
+            <span class="method-key">Income tax cut</span>
+            <span>Calibrated to Linville's ~15% reduction at 4 GW. WV personal income tax revenue base ~$2.5B/yr. The 50% income tax pool from property tax is divided by that base. Source: WV Tax Dept., Linville calculator documentation.</span>
+          </div>
+          <div class="method-item">
+            <span class="method-key">Water usage</span>
+            <span>Evaporative cooling: ~2.5 liters per kWh of IT load (NRDC/Uptime Institute). Air-cooled uses ~90% less. Industry reports project regional data center growth could consume 200M gallons/day from the Potomac River by 2050. AI video generation alone uses ~30 liters (~8 gal) of cooling water per minute of video produced. Penzance has proposed using reclaimed gray water — no binding commitment exists. WV household equivalent: 250 gal/day.</span>
+          </div>
+          <div class="method-item">
+            <span class="method-key">CO₂</span>
+            <span>WV grid carbon intensity ~0.55 metric tons CO₂/MWh (EIA, coal-heavy mix). Cars equivalent at 4.6 metric tons/car/year (EPA average). No renewable offset assumed. Source: EIA State Energy Data System.</span>
+          </div>
+          <div class="method-item">
+            <span class="method-key">Grid load</span>
+            <span>WV average annual generation ~80,000 GWh = ~9,100 MW equivalent average capacity. Source: EIA.</span>
+          </div>
+          <div class="method-item">
+            <span class="method-key">Rate hike</span>
+            <span>Total ratepayer burden estimated at ~$6M/MW. This includes direct infrastructure (transmission, Potomac Edison substation, distribution reinforcement) plus indirect cost pressure: PJM capacity auction prices have roughly tripled since 2022 due to data center demand, wholesale electricity prices rise as more generation is dispatched, and baseline rate increases already in WV rate cases compound on top. Socialized across ~800,000 WV residential accounts over 20-year amortization. AEP WV rate filings in 2024-2025 showed 15-20% increases, with data center load growth cited as a contributing factor. Household bill basis: ~$1,200/year WV average. Source: WV PSC rate cases, AEP filings, PJM capacity auction data.</span>
+          </div>
+          <div class="method-item">
+            <span class="method-key">Bedington Campus</span>
+            <span>Penzance Management "High Impact Intelligence Center." Announced Feb 26, 2026. $4B private capital, 0 public funding. 548 acres, 1.9M sq ft, 600+ MW critical IT capacity. Grid-connected near new Potomac Edison substation. ~1,000 construction jobs, 125+ permanent positions. HB&nbsp;2014 allows private power grids and exempts from local zoning. Construction late 2026, initial power late 2028.</span>
+          </div>
+          <div class="method-item">
+            <span class="method-key">About this tool</span>
+            <span>Built as a community counterpoint to single-column economic calculators. All figures are estimates based on published benchmarks, WV legislative data, and HB&nbsp;2014 formulas. Not affiliated with any government body.</span>
+          </div>
+        </div>
+      </details>
+
+    </main>
+  </div><!-- /.page-layout -->
+
+  <footer>
+    This calculator shows both columns — because communities deserve the full ledger, not just the revenue line.<br>
+    Sources: WV Legislature HB&nbsp;2014 &middot; PJM Interconnection &middot; NRDC &middot; EIA &middot; WV PSC &middot; WV State Tax Dept &middot; EPA &middot; <a href="https://www.wvgazettemail.com/news/legislative_session/morrisey-administration-penzance-wont-give-basic-berkeley-county-project-details/article_271d281d-fcf7-445e-9e3d-7763dfc7a304.html" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:underline">WV Gazette-Mail</a>
+  </footer>
+
+</div><!-- /.wrapper -->
+
+<script>
+// ── COUNTY DATA: [name, approximate 2020 population] ──────
+const COUNTIES = [
+  ['Barbour',15700],   ['Berkeley',128200],  ['Boone',21700],
+  ['Braxton',13500],   ['Brooke',21700],     ['Cabell',90900],
+  ['Calhoun',6800],    ['Clay',8400],        ['Doddridge',8700],
+  ['Fayette',40500],   ['Gilmer',7800],      ['Grant',11500],
+  ['Greenbrier',34000],['Hampshire',23700],  ['Hancock',28600],
+  ['Hardy',14500],     ['Harrison',67300],   ['Jackson',28900],
+  ['Jefferson',58300], ['Kanawha',181000],   ['Lewis',16400],
+  ['Lincoln',19800],   ['Logan',31400],      ['Marion',55700],
+  ['Marshall',30500],  ['Mason',25900],      ['McDowell',18500],
+  ['Mercer',58600],    ['Mineral',26500],    ['Mingo',23900],
+  ['Monongalia',111500],['Monroe',13500],    ['Morgan',17800],
+  ['Nicholas',24200],  ['Ohio',41600],       ['Pendleton',6900],
+  ['Pleasants',6900],  ['Pocahontas',7500],  ['Preston',33700],
+  ['Putnam',61700],    ['Raleigh',74600],    ['Randolph',28000],
+  ['Ritchie',9700],    ['Roane',13700],      ['Summers',11700],
+  ['Taylor',16800],    ['Tucker',7000],      ['Tyler',8400],
+  ['Upshur',24900],    ['Wayne',38500],      ['Webster',8200],
+  ['Wetzel',14200],    ['Wirt',5800],        ['Wood',84400],
+  ['Wyoming',19900]
+];
+
+const TOTAL_POP    = COUNTIES.reduce((s, c) => s + c[1], 0); // ~1,792,000
+const WV_GRID_MW   = 9100;   // WV average generating capacity (EIA)
+const LEVY_RATE    = 0.018;  // $1.80 per $100 assessed value (WV average)
+const INCOME_CALIB = 1.65e9; // calibration: ~15% cut at 4 GW (matches Linville)
+const GRID_COST_PER_MW    = 6e6;   // $6M/MW — transmission, substation, distribution, PJM capacity premium, and wholesale price pressure from demand growth
+const WV_RESIDENTIAL_ACCTS = 800000;
+const AVG_HOUSEHOLD_BILL   = 1200; // $/year
+
+const BERKELEY_IDX = 1;  // default host AND home (Penzance proposal — Falling Waters, Berkeley County)
+
+// ── FORMAT HELPERS ─────────────────────────────────────────
+function fmt(n) {
+  const abs = Math.abs(n);
+  if (abs >= 1e9) return '$' + (n / 1e9).toFixed(1) + 'B';
+  if (abs >= 1e6) return '$' + (n / 1e6).toFixed(1) + 'M';
+  if (abs >= 1e3) return '$' + Math.round(n / 1e3) + 'K';
+  return '$' + Math.round(n);
+}
+
+function fmtN(n) {
+  if (n >= 1e9) return (n / 1e9).toFixed(1) + 'B';
+  if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';
+  if (n >= 1e3) return Math.round(n / 1e3) + 'K';
+  return Math.round(n).toLocaleString();
+}
+
+// ── POPULATE DROPDOWN ──────────────────────────────────────
+function populateDropdowns() {
+  const sel = document.getElementById('home-county');
+  COUNTIES.forEach(([name], idx) => {
+    const opt = document.createElement('option');
+    opt.value = idx;
+    opt.textContent = name + ' County';
+    if (idx === BERKELEY_IDX) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+
+// ── GW SLIDER ─────────────────────────────────────────────
+function updateGW() {
+  const gw  = parseFloat(document.getElementById('gw').value);
+  const mw  = Math.round(gw * 1000);
+  document.getElementById('gw-display').textContent = gw.toFixed(1) + ' GW';
+  // Show Penzance context at default, generic MW at other values
+  const isPenzance = Math.abs(gw - 0.6) < 0.05;
+  document.getElementById('gw-sub').textContent = isPenzance
+    ? '600 MW \u00b7 Bedington Campus ($4B, 548 acres)'
+    : mw.toLocaleString() + ' MW';
+  document.getElementById('gw').setAttribute(
+    'aria-valuetext', gw.toFixed(1) + ' gigawatts');
+  calc();
+}
+
+// ── RESET ─────────────────────────────────────────────────
+function resetToDefaults() {
+  document.getElementById('gw').value = 0.6;
+  document.getElementById('home-county').value = BERKELEY_IDX;
+  document.getElementById('cooling').value = 'evaporative';
+  document.getElementById('exemption').value = 'partial';
+  updateGW();
+}
+
+// ── FLASH ─────────────────────────────────────────────────
+function flash(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.remove('flash');
+  void el.offsetWidth;
+  el.classList.add('flash');
+}
+
+// ── MAIN CALCULATION ───────────────────────────────────────
+function calc() {
+  const gw       = parseFloat(document.getElementById('gw').value) || 0.6;
+  const hostIdx  = BERKELEY_IDX; // Bedington Campus — always Berkeley County
+  const homeIdx  = parseInt(document.getElementById('home-county').value);
+  const cooling  = document.getElementById('cooling').value;
+  const exemption= document.getElementById('exemption').value;
+
+  const host = COUNTIES[hostIdx];
+  const home = COUNTIES[homeIdx];
+  const mw   = gw * 1000;
+  const isHostHome = hostIdx === homeIdx;
+
+  // ── TAX — Linville's exact methodology ──────────────────
+  const realAssessed  = gw * 10e9 * 0.60; // 60% of $10B/GW real property
+  const equipAssessed = gw * 30e9 * 0.03; // 3% of $30B/GW equipment
+  const totalAssessed = realAssessed + equipAssessed;
+  const fullTax       = totalAssessed * LEVY_RATE;
+
+  const exemptF  = exemption === 'full' ? 1.0 : exemption === 'partial' ? 0.60 : 0.30;
+  const tax      = fullTax * exemptF;
+  const exemptLbl= exemption === 'full'
+    ? 'no exemptions — full rate' : exemption === 'partial'
+    ? 'after ~40% exemption'      : 'after ~70% exemption';
+
+  // HB 2014 distribution
+  const hostShare      = tax * 0.30;
+  const hostSchools    = hostShare * 0.62;
+  const hostServices   = hostShare * 0.38;
+  const allCountiesPool= tax * 0.10;
+  const incomeTaxPool  = tax * 0.50;
+  const waterFund      = tax * 0.05;
+  const gridFund       = tax * 0.05;
+
+  const homePopFrac    = home[1] / TOTAL_POP;
+  const homePoolShare  = allCountiesPool * homePopFrac;
+  const homeTotal      = isHostHome
+    ? hostShare + homePoolShare
+    : homePoolShare;
+
+  const incomeTaxPct   = (incomeTaxPool / INCOME_CALIB) * 100;
+
+  // Per household — separate public benefit from personal financial impact
+  const homeHouseholds   = home[1] / 2.5;
+  const homePerHousehold = homeTotal / homeHouseholds; // public services, not cash in pocket
+
+  // Personal financial benefit: only the income tax cut reaches your wallet
+  const wvTaxFilers = 750000; // approximate WV individual income tax filers
+  const personalTaxSavings = incomeTaxPool / wvTaxFilers; // $/year per filer
+
+  // ── COMMUNITY COSTS ──────────────────────────────────────
+  const waterMult  = cooling === 'evaporative' ? 2.5 : cooling === 'hybrid' ? 1.0 : 0.25;
+  const gallonsDay = mw * 1000 * 24 * waterMult / 3.785;
+  const householdsWater = Math.round(gallonsDay / 250);
+
+  const annualMWh  = mw * 8760;
+  const co2Tons    = annualMWh * 0.55;           // WV grid ~0.55 metric tons/MWh
+  const carsEquiv  = Math.round(co2Tons / 4.6);
+
+  const wvGridPct  = (mw / WV_GRID_MW) * 100;
+
+  const gridUpgradeCost  = mw * GRID_COST_PER_MW;
+  const householdHike    = gridUpgradeCost / WV_RESIDENTIAL_ACCTS / 20; // 20-yr amortization
+  const rateHikePct      = (householdHike / AVG_HOUSEHOLD_BILL) * 100;
+
+  // Water/sewer rate pressure — industrial demand on stressed watershed raises municipal costs
+  const waterBillHike    = cooling === 'evaporative'
+    ? (mw >= 500 ? 180 : 90)
+    : cooling === 'hybrid' ? 60 : 20;
+
+  const netPerHousehold  = personalTaxSavings - householdHike - waterBillHike; // what you actually gain vs what you actually pay
+
+  // ── RENDER: environmental cards ─────────────────────────
+  const isBedington = Math.abs(gw - 0.6) < 0.05 && hostIdx === BERKELEY_IDX;
+  document.getElementById('env-water').textContent = fmtN(gallonsDay);
+  document.getElementById('env-water-human').textContent = isBedington
+    ? '\u2248 ' + fmtN(householdsWater) + ' households\u2019 daily use. Regional DC growth could reach 200M gal/day from the Potomac by 2050.'
+    : '\u2248 daily water use of ' + fmtN(householdsWater) + ' households';
+
+  document.getElementById('env-co2').textContent = fmtN(co2Tons);
+  document.getElementById('env-co2-human').textContent =
+    '\u2248 ' + fmtN(carsEquiv) + ' cars on WV roads year-round';
+
+  document.getElementById('env-grid').textContent = wvGridPct.toFixed(1) + '%';
+  document.getElementById('env-grid-human').textContent = isBedington
+    ? 'Grid-connected near the new Potomac Edison substation. At 600\u202fMW, this facility would consume ' + wvGridPct.toFixed(0) + '% of WV\u2019s current generation.'
+    : 'At ' + Math.round(mw).toLocaleString() + '\u202fMW, this facility would consume ' + wvGridPct.toFixed(0) + '% of everything West Virginia currently generates.';
+
+  // ── RENDER: what Linville shows ─────────────────────────
+  const linvilleNote = exemption !== 'full'
+    ? `<div class="money-row">
+        <div class="money-label">Linville's full-rate estimate<div class="sub">Before any HB&nbsp;2014 exemptions are applied</div></div>
+        <div class="money-val pos">${fmt(fullTax)}/yr</div>
+       </div>
+       <div class="money-row">
+        <div class="money-label">Realistic total &mdash; ${exemptLbl}<div class="sub">Most deals include significant incentives</div></div>
+        <div class="money-val caution">${fmt(tax)}/yr</div>
+       </div>`
+    : `<div class="money-row">
+        <div class="money-label">Annual property tax revenue<div class="sub">No exemptions applied &mdash; full rate</div></div>
+        <div class="money-val pos">${fmt(tax)}/yr</div>
+       </div>`;
+
+  document.getElementById('money-in').innerHTML = `
+    ${linvilleNote}
+    <div class="money-row">
+      <div class="money-label">${host[0]}&nbsp;Co. schools
+        <div class="sub">Direct new money on top of existing state funding</div></div>
+      <div class="money-val pos">${fmt(hostSchools)}/yr</div>
+    </div>
+    <div class="money-row">
+      <div class="money-label">${host[0]}&nbsp;Co. services
+        <div class="sub">Fire, roads, parks, emergency services</div></div>
+      <div class="money-val pos">${fmt(hostServices)}/yr</div>
+    </div>
+    <div class="money-row">
+      <div class="money-label">${home[0]}&nbsp;Co. share
+        <div class="sub">${isHostHome
+          ? 'You\'re in the host county — includes the direct 30% plus population share'
+          : 'Proportional share of the statewide 10% pool'}</div></div>
+      <div class="money-val pos">${fmt(homeTotal)}/yr</div>
+    </div>
+    <div class="money-row">
+      <div class="money-label">Statewide income tax relief
+        <div class="sub">For all WV residents — reduces personal income tax</div></div>
+      <div class="money-val pos">~${incomeTaxPct.toFixed(1)}% cut</div>
+    </div>
+    <div class="money-row">
+      <div class="money-label">Water &amp; grid infrastructure funds
+        <div class="sub">Statewide (5% + 5% of total property tax)</div></div>
+      <div class="money-val pos">${fmt(waterFund + gridFund)}/yr</div>
+    </div>
+  `;
+
+  // ── RENDER: what you pay ─────────────────────────────────
+  const netSign  = netPerHousehold >= 0 ? '+' : '\u2212';
+  const netColor = netPerHousehold >= 0 ? 'var(--teal)' : 'var(--red)';
+  const netLabel = netPerHousehold >= 0 ? 'net benefit' : 'net cost';
+
+  document.getElementById('money-out').innerHTML = `
+    <div class="money-row">
+      <div class="money-label">Your electricity bill increase
+        <div class="sub">Per household, per year — every home in WV pays this</div></div>
+      <div class="money-val neg">+${fmt(householdHike)}/yr</div>
+    </div>
+    <div class="money-row">
+      <div class="money-label">Residential rate hike
+        <div class="sub">Grid upgrades socialized across 800K WV customers</div></div>
+      <div class="money-val neg">+${rateHikePct.toFixed(1)}%</div>
+    </div>
+    <div class="money-row">
+      <div class="money-label">Total grid infrastructure cost
+        <div class="sub">Paid by ratepayers, not the data center</div></div>
+      <div class="money-val neg">${fmt(gridUpgradeCost)}</div>
+    </div>
+    <div class="money-row">
+      <div class="money-label">Water &amp; sewer bill pressure
+        <div class="sub">Industrial draw strains supply during drought — municipal rates rise for everyone</div></div>
+      <div class="money-val neg">+${fmt(waterBillHike)}/yr</div>
+    </div>
+    <div class="money-row">
+      <div class="money-label">Noise — 24/7 industrial operations
+        <div class="sub">65&ndash;85&nbsp;dB at facility perimeter; no WV law limits it</div></div>
+      <div class="money-val neg">Permanent</div>
+    </div>
+    <div class="money-row">
+      <div class="money-label">Your personal net — what hits your wallet
+        <div class="sub">Income tax savings (~${fmt(personalTaxSavings)}/yr) minus electricity (+${fmt(householdHike)}) and water/sewer (+${fmt(waterBillHike)}) increases. County tax revenue goes to services — not to you.</div></div>
+      <div class="money-val" style="color:${netColor}">${netSign}${fmt(Math.abs(netPerHousehold))}/yr ${netLabel}</div>
+    </div>
+  `;
+
+  flash('money-in');
+  flash('money-out');
+
+  // ── RENDER: scorecard ────────────────────────────────────
+  const waterSev  = cooling === 'evaporative'
+    ? (mw >= 500 ? 90 : 65) : (mw >= 500 ? 35 : 20);
+  const gridSev   = Math.min(wvGridPct * 1.2, 95);
+  const co2Sev    = Math.min(mw / 10, 95);
+  const noiseSev  = mw < 50 ? 30 : mw < 200 ? 55 : mw < 500 ? 75 : 90;
+  const exemptSev = exemption === 'full' ? 10 : exemption === 'partial' ? 50 : 82;
+  const strandSev = Math.min(wvGridPct * 0.9, 85);
+
+  const factors = [
+    ['⚡', 'Grid strain and residential rate hike',         gridSev],
+    ['💧', 'Water consumption and watershed stress',        waterSev],
+    ['\u2601', 'Carbon emissions on WV\'s coal-heavy grid', co2Sev],
+    ['🔊', 'Noise — 24/7 industrial operations',           noiseSev],
+    ['📋', 'Tax exemptions overstating headline revenue',   exemptSev],
+    ['🏚',  'Stranded infrastructure if operator exits',    strandSev],
+  ];
+
+  document.getElementById('scorecard-body').innerHTML = factors.map(([icon, label, sev]) => {
+    const color = sev > 70 ? 'var(--red)' : sev > 40 ? 'var(--amber)' : 'var(--teal)';
+    const word  = sev > 70 ? 'High' : sev > 40 ? 'Med' : 'Low';
+    return `<div class="factor-row">
+      <span class="factor-icon" aria-hidden="true">${icon}</span>
+      <span class="factor-label">${label}</span>
+      <div class="factor-bar-wrap" role="presentation">
+        <div class="factor-bar" style="width:${sev}%;background:${color}"></div>
+      </div>
+      <span class="factor-verdict" style="color:${color}">${word}</span>
+    </div>`;
+  }).join('');
+
+  // ── RENDER: net verdict ──────────────────────────────────
+  let cls, label, sub;
+  const isGoodDeal = netPerHousehold > 20 && cooling !== 'evaporative' && wvGridPct < 20;
+  const isHighRisk = netPerHousehold < -40 || wvGridPct > 40
+    || (cooling === 'evaporative' && mw >= 500);
+
+  if (isGoodDeal) {
+    cls   = 'favorable';
+    label = 'Potentially Favorable \u2014 with enforceable conditions';
+    sub   = `At this configuration, households in ${home[0]} County could see a modest net positive — but only if grid upgrade costs are contractually ring-fenced from residential ratepayers. Without that protection in writing, the electricity increase erases the tax benefit.`;
+  } else if (isHighRisk) {
+    cls   = 'risk';
+    label = 'High Community Risk';
+    sub   = `A ${Math.round(mw).toLocaleString()} MW facility at this scale draws ${fmtN(gallonsDay)} gallons of water per day, pushes ${wvGridPct.toFixed(0)}% of WV\u2019s grid capacity, and costs a typical ${home[0]} County household roughly ${fmt(householdHike)} more per year in electricity \u2014 while returning only ${fmt(homePerHousehold)} in public tax benefit. The bill lands on people who never voted on the project.`;
+  } else {
+    cls   = 'mixed';
+    label = 'Mixed \u2014 The numbers need scrutiny';
+    sub   = `The tax revenue is real. So are the electricity costs, water draw, and emissions. A typical ${home[0]} County household receives roughly ${fmt(homePerHousehold)}/year in public tax benefit while paying an estimated ${fmt(householdHike)}/year more in electricity. Whether that\u2019s acceptable depends entirely on what\u2019s in the written agreements \u2014 and whether they\u2019re enforceable.`;
+  }
+
+  const el = document.getElementById('net-verdict');
+  el.className = 'net-verdict ' + cls;
+  document.getElementById('verdict-label').textContent = label;
+  document.getElementById('verdict-sub').textContent   = sub;
+}
+
+// ── INIT ────────────────────────────────────────────────────
+populateDropdowns();
+updateGW();
+</script>
+</body>
+</html>
