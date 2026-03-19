@@ -7,12 +7,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:            #edf0f7;
+    --bg:            #fafafa;
     --surface:       #ffffff;
-    --surface-alt:   #ffffff;
-    --ink:           #153462;
-    --ink-light:     #2a4a7a;
-    --ink-faint:     #6b8a7a;
+    --surface-alt:   #f7f8fa;
+    --ink:           #1a2332;
+    --ink-light:     #3a4a5e;
+    --ink-faint:     #7a8a9e;
     --teal:          #4fa095;
     --teal-light:    #6ab5a8;
     --teal-pale:     #e8f3f0;
@@ -22,8 +22,8 @@
     --amber:         #b07d1a;
     --amber-light:   #d4a020;
     --amber-pale:    #fef7e6;
-    --border:        rgba(21,52,98,0.09);
-    --border-strong: rgba(21,52,98,0.17);
+    --border:        rgba(0,0,0,0.07);
+    --border-strong: rgba(0,0,0,0.12);
     --sidebar:       #1a1e2e;
     --sidebar-text:  rgba(255,255,255,0.92);
     --sidebar-muted: rgba(180,190,210,0.55);
@@ -35,6 +35,9 @@
 
   body {
     background: var(--bg);
+    background-image:
+      radial-gradient(circle, rgba(0,0,0,0.03) 1px, transparent 1px);
+    background-size: 24px 24px;
     color: var(--ink);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     min-height: 100vh;
@@ -106,7 +109,7 @@
     overflow-y: auto;
     background: var(--sidebar);
     border-radius: 10px;
-    box-shadow: 0 4px 24px rgba(10,12,20,0.35);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12), 0 8px 32px rgba(0,0,0,0.08);
     scrollbar-width: thin;
     scrollbar-color: rgba(255,255,255,0.18) transparent;
   }
@@ -342,12 +345,12 @@
     border: none;
     border-radius: 12px;
     padding: 1.25rem 1.25rem 1rem;
-    box-shadow: 0 2px 12px rgba(21,52,98,0.08);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
     cursor: pointer;
     transition: box-shadow 0.2s;
   }
 
-  .env-card:hover { box-shadow: 0 4px 20px rgba(21,52,98,0.14); }
+  .env-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1), 0 8px 24px rgba(0,0,0,0.06); }
 
   .env-card-label {
     font-family: 'IBM Plex Mono', monospace;
@@ -434,10 +437,10 @@
 
   .money-panel {
     background: var(--surface);
-    border: 1px solid var(--border-strong);
-    border-radius: 6px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.03);
   }
 
   .money-header {
@@ -449,7 +452,7 @@
     font-weight: 600;
   }
 
-  .money-header.in  { background: #d5dbe6;  color: #3a4a62; border-bottom: 2px solid #9aa8be; }
+  .money-header.in  { background: #f0f3f8;  color: #3a4a62; border-bottom: 2px solid #c5d0e0; }
   .money-header.out { background: var(--red-pale);   color: var(--red);  border-bottom: 2px solid var(--red-light); }
 
   .money-body { padding: 0.25rem 1rem 0.5rem; }
@@ -495,17 +498,17 @@
 
   .blind-spots {
     background: var(--surface);
-    border: 1px solid var(--border-strong);
-    border-radius: 6px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
     overflow: hidden;
     margin-bottom: 0.75rem;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.03);
   }
 
   .blind-spots-header {
     padding: 0.5rem 1rem;
-    background: #e8edf5;
-    border-bottom: 2px solid #9db2d0;
+    background: #f0f3f8;
+    border-bottom: 2px solid #c5d0e0;
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.7rem;
     letter-spacing: 0.12em;
