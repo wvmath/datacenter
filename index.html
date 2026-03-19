@@ -1481,15 +1481,16 @@ function calc() {
     fill.setAttribute('stroke-dasharray', `${fillAmount.toFixed(1)} ${arcLen.toFixed(1)}`);
     fill.setAttribute('stroke-dashoffset', '0');
 
-    // Color transitions through the zones
-    if (score > 67) {
-      fill.setAttribute('stroke', '#e87470');
-    } else if (score > 33) {
-      fill.setAttribute('stroke', '#d4a020');
-    } else if (score > 10) {
-      fill.setAttribute('stroke', '#8adbc8');
+    // Color based on whether net is positive or negative
+    // Breakeven ($0) is at score ≈ 33.3
+    if (netPerHousehold < -200) {
+      fill.setAttribute('stroke', '#e04444');   // deep red — significant loss
+    } else if (netPerHousehold < 0) {
+      fill.setAttribute('stroke', '#e87470');   // red — net loss
+    } else if (netPerHousehold < 100) {
+      fill.setAttribute('stroke', '#8adbc8');   // light teal — marginal gain
     } else {
-      fill.setAttribute('stroke', '#4fa095');
+      fill.setAttribute('stroke', '#4fa095');   // teal — clear benefit
     }
 
     // Needle: rotate from 0° (pointing left/positive) to 180° (pointing right/negative)
@@ -1501,7 +1502,7 @@ function calc() {
     const scoreEl = document.getElementById('gauge-score');
     const sign = netPerHousehold >= 0 ? '+' : '\u2212';
     scoreEl.textContent = sign + fmt(Math.abs(netPerHousehold)) + '/yr';
-    scoreEl.className = 'gauge-score ' + (score > 67 ? 'neg' : score > 33 ? 'neut' : 'pos');
+    scoreEl.className = 'gauge-score ' + (netPerHousehold < 0 ? 'neg' : 'pos');
 
     document.getElementById('gauge-sublabel').textContent =
       netPerHousehold >= 0
