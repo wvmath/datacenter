@@ -1308,9 +1308,10 @@ function calc() {
   // distant counties see minimal water impact
   const isEasternPanhandle = [1, 18, 32].includes(homeIdx); // Berkeley, Jefferson, Morgan
   const waterProximity = isHostHome ? 1.0 : isEasternPanhandle ? 0.5 : 0.05;
-  const baseWaterHike = cooling === 'evaporative'
-    ? (mw >= 500 ? 180 : 90)
-    : cooling === 'hybrid' ? 60 : 20;
+  const baseWaterHike = mw === 0 ? 0
+    : cooling === 'evaporative'
+      ? (mw >= 500 ? 180 : 90)
+      : cooling === 'hybrid' ? 60 : 20;
   const waterBillHike = Math.round(baseWaterHike * waterProximity);
 
   const netPerHousehold  = personalTaxSavings - householdHike - waterBillHike; // what you actually gain vs what you actually pay
