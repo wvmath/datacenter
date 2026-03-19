@@ -7,27 +7,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:            #f0f2f5;
+    --bg:            #edf0f7;
     --surface:       #ffffff;
-    --surface-alt:   #f7f9fb;
-    --ink:           #1a2332;
-    --ink-light:     #3d4f63;
-    --ink-faint:     #7a8fa6;
-    --teal:          #1b9e8a;
-    --teal-light:    #2bbfa4;
-    --teal-pale:     #e6f7f4;
+    --surface-alt:   #ffffff;
+    --ink:           #153462;
+    --ink-light:     #2a4a7a;
+    --ink-faint:     #6b8a7a;
+    --teal:          #4fa095;
+    --teal-light:    #6ab5a8;
+    --teal-pale:     #e8f3f0;
     --red:           #c93535;
     --red-light:     #e04444;
     --red-pale:      #fef0f0;
     --amber:         #b07d1a;
     --amber-light:   #d4a020;
     --amber-pale:    #fef7e6;
-    --border:        rgba(30,50,80,0.09);
-    --border-strong: rgba(30,50,80,0.17);
-    --sidebar:       #1a5c52;
+    --border:        rgba(21,52,98,0.09);
+    --border-strong: rgba(21,52,98,0.17);
+    --sidebar:       #1a1e2e;
     --sidebar-text:  rgba(255,255,255,0.92);
-    --sidebar-muted: rgba(255,255,255,0.52);
-    --sidebar-bdr:   rgba(255,255,255,0.14);
+    --sidebar-muted: rgba(180,190,210,0.55);
+    --sidebar-bdr:   rgba(180,190,210,0.18);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -60,17 +60,17 @@
 
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.63rem;
+    font-size: 0.72rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--amber);
+    color: #4a7ab5;
     width: 100%;
     margin-bottom: 0.25rem;
   }
 
   h1 {
     font-family: 'Inter', sans-serif;
-    font-size: clamp(1.4rem, 3vw, 1.8rem);
+    font-size: clamp(1.6rem, 3.5vw, 2.1rem);
     font-weight: 800;
     line-height: 1.1;
     color: var(--ink);
@@ -79,11 +79,11 @@
   .h1-accent { color: var(--teal); }
 
   .thesis {
-    font-size: 0.82rem;
+    font-size: 0.95rem;
     line-height: 1.6;
     color: var(--ink-light);
-    flex: 1;
-    min-width: 280px;
+    max-width: 100%;
+    margin-bottom: 1rem;
   }
 
   .thesis strong { color: var(--ink); font-weight: 600; }
@@ -106,7 +106,7 @@
     overflow-y: auto;
     background: var(--sidebar);
     border-radius: 10px;
-    box-shadow: 0 4px 24px rgba(26,92,82,0.22);
+    box-shadow: 0 4px 24px rgba(10,12,20,0.35);
     scrollbar-width: thin;
     scrollbar-color: rgba(255,255,255,0.18) transparent;
   }
@@ -118,7 +118,7 @@
 
   .sidebar-title {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.6rem;
+    font-size: 0.7rem;
     letter-spacing: 0.17em;
     text-transform: uppercase;
     color: var(--sidebar-muted);
@@ -140,7 +140,7 @@
   .input-group label {
     display: block;
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.63rem;
+    font-size: 0.73rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--sidebar-text);
@@ -148,7 +148,7 @@
   }
 
   .input-group .hint {
-    font-size: 0.6rem;
+    font-size: 0.7rem;
     color: var(--sidebar-muted);
     margin-top: 0.2rem;
     line-height: 1.4;
@@ -163,7 +163,7 @@
     border-radius: 5px;
     color: var(--sidebar-text);
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.78rem;
+    font-size: 0.88rem;
     -webkit-appearance: none;
     appearance: none;
     cursor: pointer;
@@ -179,11 +179,11 @@
     outline-offset: 1px;
   }
 
-  select.sidebar-select option { background: #1a3d36; color: #fff; }
+  select.sidebar-select option { background: #1a1e2e; color: #fff; }
 
   .slider-value {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 1rem;
+    font-size: 1.15rem;
     font-weight: 600;
     color: #fff;
     line-height: 1;
@@ -192,7 +192,7 @@
 
   .slider-sub {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.58rem;
+    font-size: 0.68rem;
     color: var(--sidebar-muted);
     margin-bottom: 0.3rem;
   }
@@ -245,7 +245,7 @@
     border: 1px solid var(--sidebar-bdr);
     border-radius: 5px;
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.63rem;
+    font-size: 0.75rem;
     letter-spacing: 0.05em;
     color: var(--sidebar-muted);
     cursor: pointer;
@@ -264,7 +264,7 @@
 
   .net-verdict {
     border-radius: 6px;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
     border: 1px solid;
     border-left-width: 4px;
   }
@@ -293,15 +293,16 @@
 
   .verdict-label {
     font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     font-weight: 700;
     line-height: 1.2;
     flex: 1;
+    color: var(--ink);
   }
 
   .verdict-arrow {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.55rem;
+    font-size: 0.6rem;
     color: var(--ink-faint);
     flex-shrink: 0;
     transition: transform 0.2s ease;
@@ -311,7 +312,7 @@
   .net-verdict[open] .verdict-arrow { transform: rotate(180deg); }
 
   .verdict-sub {
-    font-size: 0.73rem;
+    font-size: 0.85rem;
     color: var(--ink-light);
     line-height: 1.5;
     max-width: 620px;
@@ -320,56 +321,107 @@
 
   /* ── ENVIRONMENTAL CARDS ─────────────────────── */
 
+  .env-section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.6rem;
+  }
+
   .env-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
-    margin-bottom: 0.75rem;
+    gap: 1rem;
+    margin-bottom: 1rem;
   }
 
   .env-card {
     background: var(--surface);
-    border: 1px solid var(--border-strong);
-    border-radius: 6px;
-    padding: 0.75rem 1rem;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    border: none;
+    border-radius: 12px;
+    padding: 1.25rem 1.25rem 1rem;
+    box-shadow: 0 2px 12px rgba(21,52,98,0.08);
+    cursor: pointer;
+    transition: box-shadow 0.2s;
   }
+
+  .env-card:hover { box-shadow: 0 4px 20px rgba(21,52,98,0.14); }
 
   .env-card-label {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.58rem;
+    font-size: 0.7rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--ink-faint);
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.35rem;
     display: flex;
     align-items: center;
-    gap: 0.35rem;
+    gap: 0.4rem;
   }
+
+  .env-card-label span { font-size: 1.1rem; }
+
+  /* Per-card accent colors */
+  .env-card[data-accent="blue"] .env-card-label span { color: #3b82f6; }
+  .env-card[data-accent="blue"] .env-num { color: #3b82f6; }
+  .env-card[data-accent="blue"] .env-toggle { color: #3b82f6; }
+
+  .env-card[data-accent="green"] .env-card-label span { color: #22c55e; }
+  .env-card[data-accent="green"] .env-num { color: #22c55e; }
+  .env-card[data-accent="green"] .env-toggle { color: #22c55e; }
+
+  .env-card[data-accent="amber"] .env-card-label span { color: #f59e0b; }
+  .env-card[data-accent="amber"] .env-num { color: #f59e0b; }
+  .env-card[data-accent="amber"] .env-toggle { color: #f59e0b; }
 
   .env-num {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+    font-size: clamp(1.7rem, 2.8vw, 2.2rem);
     font-weight: 600;
-    color: var(--red);
+    color: var(--ink);
     line-height: 1;
   }
 
   .env-unit {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.58rem;
+    font-size: 0.75rem;
     color: var(--ink-faint);
-    margin-top: 0.15rem;
+    margin-top: 0.25rem;
   }
 
   .env-human {
-    font-size: 0.72rem;
+    font-size: 0.85rem;
     color: var(--ink-light);
-    margin-top: 0.4rem;
     line-height: 1.4;
     padding-top: 0.4rem;
     border-top: 1px solid var(--border);
+    display: none;
+    margin-top: 0.4rem;
   }
+
+  .env-card.expanded .env-human { display: block; }
+
+  .env-toggle {
+    display: block;
+    margin-top: 0.5rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0.15rem 0;
+    letter-spacing: 0.04em;
+    transition: opacity 0.15s;
+    font-weight: 500;
+  }
+
+  .env-toggle:hover { opacity: 0.7; }
+  .env-toggle:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; border-radius: 2px; }
+  .env-card.expanded .env-toggle .toggle-more { display: none; }
+  .env-card:not(.expanded) .env-toggle .toggle-less { display: none; }
 
   /* ── MONEY PANELS ────────────────────────────── */
 
@@ -391,13 +443,13 @@
   .money-header {
     padding: 0.5rem 1rem;
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.58rem;
+    font-size: 0.7rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     font-weight: 600;
   }
 
-  .money-header.in  { background: var(--teal-pale);  color: var(--teal); border-bottom: 2px solid var(--teal-light); }
+  .money-header.in  { background: #d5dbe6;  color: #3a4a62; border-bottom: 2px solid #9aa8be; }
   .money-header.out { background: var(--red-pale);   color: var(--red);  border-bottom: 2px solid var(--red-light); }
 
   .money-body { padding: 0.25rem 1rem 0.5rem; }
@@ -414,14 +466,14 @@
   .money-row:last-child { border-bottom: none; }
 
   .money-label {
-    font-size: 0.75rem;
+    font-size: 0.88rem;
     color: var(--ink-light);
     flex: 1;
     line-height: 1.3;
   }
 
   .money-label .sub {
-    font-size: 0.63rem;
+    font-size: 0.75rem;
     color: var(--ink-faint);
     font-style: italic;
     margin-top: 0.1rem;
@@ -429,19 +481,19 @@
 
   .money-val {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.78rem;
+    font-size: 0.9rem;
     font-weight: 600;
     white-space: nowrap;
     text-align: right;
   }
 
-  .money-val.pos    { color: var(--teal); }
+  .money-val.pos    { color: #5a6578; }
   .money-val.neg    { color: var(--red); }
   .money-val.caution{ color: var(--amber); }
 
-  /* ── SCORECARD ────────────────────────────────── */
+  /* ── BLIND SPOTS ─────────────────────────────── */
 
-  .scorecard {
+  .blind-spots {
     background: var(--surface);
     border: 1px solid var(--border-strong);
     border-radius: 6px;
@@ -450,56 +502,63 @@
     box-shadow: 0 1px 4px rgba(0,0,0,0.07);
   }
 
-  .scorecard-header {
+  .blind-spots-header {
     padding: 0.5rem 1rem;
-    background: var(--amber-pale);
-    border-bottom: 2px solid var(--amber-light);
+    background: #e8edf5;
+    border-bottom: 2px solid #9db2d0;
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.58rem;
+    font-size: 0.7rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--amber);
+    color: #4a6a94;
     font-weight: 600;
   }
 
-  .scorecard-body { padding: 0.1rem 1rem 0.25rem; }
+  .blind-spots-body { padding: 0.5rem 1rem 0.75rem; }
 
-  .factor-row {
+  .blind-spot {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.35rem 0;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
     border-bottom: 1px solid var(--border);
   }
 
-  .factor-row:last-child { border-bottom: none; }
+  .blind-spot:last-child { border-bottom: none; }
 
-  .factor-icon   { font-size: 0.85rem; width: 1.1rem; text-align: center; flex-shrink: 0; }
-  .factor-label  { flex: 1; font-size: 0.73rem; color: var(--ink-light); }
-
-  .factor-bar-wrap {
-    width: 90px; height: 6px;
-    background: var(--bg);
-    border-radius: 3px;
-    overflow: hidden;
+  .blind-spot-icon {
+    font-size: 1rem;
+    width: 1.2rem;
+    text-align: center;
     flex-shrink: 0;
+    padding-top: 0.1rem;
   }
 
-  .factor-bar { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+  .blind-spot-content { flex: 1; }
 
-  .factor-verdict {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
+  .blind-spot-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
     font-weight: 600;
-    width: 44px;
-    text-align: right;
-    flex-shrink: 0;
+    color: var(--ink);
+    margin-bottom: 0.15rem;
+  }
+
+  .blind-spot-text {
+    font-size: 0.8rem;
+    color: var(--ink-light);
+    line-height: 1.45;
+  }
+
+  .blind-spot-figure {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    color: #3b6ea5;
   }
 
   /* ── DEMANDS ─────────────────────────────────── */
 
   .demands {
-    background: var(--ink);
+    background: #253249;
     border-radius: 6px;
     overflow: hidden;
     margin-bottom: 0.75rem;
@@ -508,7 +567,7 @@
   .demands-header {
     padding: 0.5rem 1.25rem;
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.58rem;
+    font-size: 0.7rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: rgba(255,255,255,0.45);
@@ -537,10 +596,10 @@
 
   .demand-n {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
+    font-size: 0.78rem;
     font-weight: 600;
-    color: var(--teal-light);
-    opacity: 0.75;
+    color: #7ba3cc;
+    opacity: 0.85;
     width: 1.5rem;
     flex-shrink: 0;
     padding-top: 0.1rem;
@@ -548,7 +607,7 @@
 
   .demand-title {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.63rem;
+    font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.07em;
@@ -557,7 +616,7 @@
   }
 
   .demand-text {
-    font-size: 0.73rem;
+    font-size: 0.85rem;
     color: rgba(255,255,255,0.58);
     line-height: 1.45;
   }
@@ -575,10 +634,10 @@
   .methodology summary {
     padding: 1rem 1.25rem;
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
+    font-size: 0.78rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--teal);
+    color: #4a6a94;
     cursor: pointer;
     list-style: none;
     display: flex;
@@ -588,7 +647,7 @@
     user-select: none;
   }
 
-  .methodology summary:hover { background: var(--teal-pale); }
+  .methodology summary:hover { background: #e8edf5; }
   .methodology summary:focus-visible { outline: 2px solid var(--teal); outline-offset: -2px; }
   .methodology summary::after { content: '▼'; font-size: 0.6rem; }
   .methodology[open] summary::after { content: '▲'; }
@@ -602,12 +661,12 @@
     gap: 0.75rem;
   }
 
-  .method-item { display: flex; gap: 1rem; font-size: 0.82rem; color: var(--ink-light); line-height: 1.6; }
+  .method-item { display: flex; gap: 1rem; font-size: 0.92rem; color: var(--ink-light); line-height: 1.6; }
   .method-key {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
+    font-size: 0.78rem;
     font-weight: 600;
-    color: var(--teal);
+    color: #4a6a94;
     white-space: nowrap;
     min-width: 110px;
     padding-top: 0.1rem;
@@ -619,7 +678,7 @@
     margin-top: 3rem;
     padding-top: 1.5rem;
     border-top: 1px solid var(--border-strong);
-    font-size: 0.73rem;
+    font-size: 0.85rem;
     color: var(--ink-faint);
     text-align: center;
     line-height: 1.7;
@@ -670,17 +729,19 @@
   <header>
     <p class="eyebrow">Bedington Campus &middot; Berkeley County, WV &middot; Community Impact</p>
     <h1>Data Center. <span class="h1-accent">Full Picture.</span></h1>
-    <p class="thesis"><a href="https://linvilleforwv.com/datacentertool/" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:underline;text-underline-offset:2px">Delegate Linville's calculator</a> shows what your county receives.
+  </header>
+
+  <p class="thesis"><a href="https://linvilleforwv.com/datacentertool/" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:underline;text-underline-offset:2px">Delegate Linville's calculator</a> shows what your county receives.
     <strong>This one adds what you pay</strong> — on your electricity bill, in your watershed,
     and in the air above your neighborhood. Pre-loaded with the Penzance &ldquo;High Impact Intelligence Center&rdquo; at Bedington: $4B, 600&nbsp;MW, 548&nbsp;acres.
     Penzance and the Commerce Department have <a href="https://www.wvgazettemail.com/news/legislative_session/morrisey-administration-penzance-wont-give-basic-berkeley-county-project-details/article_271d281d-fcf7-445e-9e3d-7763dfc7a304.html" target="_blank" rel="noopener" style="color:var(--red);text-decoration:underline;text-underline-offset:2px">refused to disclose</a> water usage plans, environmental assessments, or application materials.</p>
-  </header>
 
   <div class="page-layout">
 
     <!-- ── SIDEBAR ──────────────────────────────── -->
     <aside class="sidebar" aria-label="Calculator controls">
       <div class="sidebar-inner">
+
         <p class="sidebar-title">Configure the project</p>
 
         <div class="input-group">
@@ -732,33 +793,28 @@
     <!-- ── MAIN CONTENT ──────────────────────────── -->
     <main class="main-content">
 
-      <!-- Net verdict -->
-      <details class="net-verdict risk" id="net-verdict" role="status" aria-live="polite">
-        <summary>
-          <span class="verdict-label" id="verdict-label">—</span>
-          <span class="verdict-arrow" aria-hidden="true">&#9660;</span>
-        </summary>
-        <p class="verdict-sub" id="verdict-sub">Configure the controls to see the assessment.</p>
-      </details>
-
       <!-- Environmental impact at a glance -->
+      <div class="env-section-label">Facility-wide impact — same for all WV counties</div>
       <div class="env-cards">
-        <div class="env-card">
+        <div class="env-card" data-accent="blue" onclick="this.classList.toggle('expanded')">
           <div class="env-card-label"><span aria-hidden="true">💧</span> Water draw</div>
           <div class="env-num" id="env-water">—</div>
           <div class="env-unit">gallons per day</div>
+          <button class="env-toggle" aria-label="Toggle details"><span class="toggle-more">+ context</span><span class="toggle-less">&minus; hide</span></button>
           <div class="env-human" id="env-water-human">—</div>
         </div>
-        <div class="env-card">
+        <div class="env-card" data-accent="green" onclick="this.classList.toggle('expanded')">
           <div class="env-card-label"><span aria-hidden="true">☁</span> CO₂ per year</div>
           <div class="env-num" id="env-co2">—</div>
           <div class="env-unit">metric tons annually</div>
+          <button class="env-toggle" aria-label="Toggle details"><span class="toggle-more">+ context</span><span class="toggle-less">&minus; hide</span></button>
           <div class="env-human" id="env-co2-human">—</div>
         </div>
-        <div class="env-card">
+        <div class="env-card" data-accent="amber" onclick="this.classList.toggle('expanded')">
           <div class="env-card-label"><span aria-hidden="true">⚡</span> Grid consumption</div>
           <div class="env-num" id="env-grid">—</div>
           <div class="env-unit">of WV's current grid</div>
+          <button class="env-toggle" aria-label="Toggle details"><span class="toggle-more">+ context</span><span class="toggle-less">&minus; hide</span></button>
           <div class="env-human" id="env-grid-human">—</div>
         </div>
       </div>
@@ -777,11 +833,19 @@
         </div>
       </div>
 
-      <!-- Scorecard -->
-      <div class="scorecard">
-        <div class="scorecard-header">Community impact scorecard &mdash; what the tax calculator doesn't count</div>
-        <div class="scorecard-body" id="scorecard-body"
-          aria-live="polite" aria-label="Community impact scorecard"></div>
+      <!-- Net verdict -->
+      <details class="net-verdict risk" id="net-verdict" role="status" aria-live="polite">
+        <summary>
+          <span class="verdict-label" id="verdict-label">—</span>
+          <span class="verdict-arrow" aria-hidden="true">&#9660;</span>
+        </summary>
+        <p class="verdict-sub" id="verdict-sub">Configure the controls to see the assessment.</p>
+      </details>
+
+      <!-- Blind spots -->
+      <div class="blind-spots">
+        <div class="blind-spots-header">What Linville's calculator leaves out</div>
+        <div class="blind-spots-body" id="blind-spots-body"></div>
       </div>
 
       <!-- What to demand -->
@@ -912,7 +976,12 @@ const LEVY_RATE    = 0.018;  // $1.80 per $100 assessed value (WV average)
 const INCOME_CALIB = 1.65e9; // calibration: ~15% cut at 4 GW (matches Linville)
 const GRID_COST_PER_MW    = 6e6;   // $6M/MW — transmission, substation, distribution, PJM capacity premium, and wholesale price pressure from demand growth
 const WV_RESIDENTIAL_ACCTS = 800000;
+const POTOMAC_EDISON_ACCTS = 130000; // ~130K residential accounts in Potomac Edison (FirstEnergy) service territory
 const AVG_HOUSEHOLD_BILL   = 1200; // $/year
+
+// Potomac Edison service territory counties (Eastern Panhandle + nearby)
+// Berkeley, Grant, Hampshire, Hardy, Jefferson, Mineral, Morgan, Pendleton
+const POTOMAC_EDISON_COUNTIES = [1, 11, 13, 15, 18, 28, 32, 35];
 
 const BERKELEY_IDX = 1;  // default host AND home (Penzance proposal — Falling Waters, Berkeley County)
 
@@ -1039,13 +1108,28 @@ function calc() {
   const wvGridPct  = (mw / WV_GRID_MW) * 100;
 
   const gridUpgradeCost  = mw * GRID_COST_PER_MW;
-  const householdHike    = gridUpgradeCost / WV_RESIDENTIAL_ACCTS / 20; // 20-yr amortization
+  const isPotomacEdison  = POTOMAC_EDISON_COUNTIES.includes(homeIdx);
+
+  // Grid cost split: local utility (Potomac Edison) bears infrastructure upgrades,
+  // broader PJM market sees wholesale/capacity effects
+  // Potomac Edison has ~130K residential but also ~40K commercial/industrial accounts
+  const PE_TOTAL_ACCTS   = 170000; // all Potomac Edison customer accounts
+  const directGridCost   = gridUpgradeCost * 0.50; // 50% local infrastructure
+  const wholesaleEffect  = gridUpgradeCost * 0.50; // 50% PJM wholesale/capacity ripple
+  const householdHike    = isPotomacEdison
+    ? (directGridCost / PE_TOTAL_ACCTS / 30) + (wholesaleEffect / WV_RESIDENTIAL_ACCTS / 30) // 30-yr amortization
+    : wholesaleEffect / WV_RESIDENTIAL_ACCTS / 30;
   const rateHikePct      = (householdHike / AVG_HOUSEHOLD_BILL) * 100;
 
   // Water/sewer rate pressure — industrial demand on stressed watershed raises municipal costs
-  const waterBillHike    = cooling === 'evaporative'
+  // Berkeley County (host) bears the direct impact; neighboring Eastern Panhandle counties feel it too;
+  // distant counties see minimal water impact
+  const isEasternPanhandle = [1, 18, 32].includes(homeIdx); // Berkeley, Jefferson, Morgan
+  const waterProximity = isHostHome ? 1.0 : isEasternPanhandle ? 0.5 : 0.05;
+  const baseWaterHike = cooling === 'evaporative'
     ? (mw >= 500 ? 180 : 90)
     : cooling === 'hybrid' ? 60 : 20;
+  const waterBillHike = Math.round(baseWaterHike * waterProximity);
 
   const netPerHousehold  = personalTaxSavings - householdHike - waterBillHike; // what you actually gain vs what you actually pay
 
@@ -1119,12 +1203,16 @@ function calc() {
   document.getElementById('money-out').innerHTML = `
     <div class="money-row">
       <div class="money-label">Your electricity bill increase
-        <div class="sub">Per household, per year — every home in WV pays this</div></div>
+        <div class="sub">${isPotomacEdison
+          ? 'Potomac Edison territory — you pay for local grid upgrades plus wholesale market effects'
+          : 'Outside Potomac Edison territory — you see only wholesale market / PJM capacity effects'}</div></div>
       <div class="money-val neg">+${fmt(householdHike)}/yr</div>
     </div>
     <div class="money-row">
       <div class="money-label">Residential rate hike
-        <div class="sub">Grid upgrades socialized across 800K WV customers</div></div>
+        <div class="sub">${isPotomacEdison
+          ? 'Grid upgrades across ~130K Potomac Edison customers'
+          : 'Wholesale effects across ~800K WV customers'}</div></div>
       <div class="money-val neg">+${rateHikePct.toFixed(1)}%</div>
     </div>
     <div class="money-row">
@@ -1134,13 +1222,21 @@ function calc() {
     </div>
     <div class="money-row">
       <div class="money-label">Water &amp; sewer bill pressure
-        <div class="sub">Industrial draw strains supply during drought — municipal rates rise for everyone</div></div>
-      <div class="money-val neg">+${fmt(waterBillHike)}/yr</div>
+        <div class="sub">${isHostHome
+          ? 'Industrial draw strains supply during drought — municipal rates rise for everyone'
+          : isEasternPanhandle
+            ? 'Shared Potomac watershed — regional demand affects your water system'
+            : 'Minimal direct impact — your water system is not on the Potomac watershed'}</div></div>
+      <div class="money-val neg">${waterBillHike > 0 ? '+' + fmt(waterBillHike) + '/yr' : 'Minimal'}</div>
     </div>
     <div class="money-row">
       <div class="money-label">Noise — 24/7 industrial operations
-        <div class="sub">65&ndash;85&nbsp;dB at facility perimeter; no WV law limits it</div></div>
-      <div class="money-val neg">Permanent</div>
+        <div class="sub">${isHostHome
+          ? '65&ndash;85&nbsp;dB at facility perimeter; no WV law limits it'
+          : isEasternPanhandle
+            ? 'Regional hum from nearby facility; less direct but measurable'
+            : 'Not directly affected — facility noise is localized to Berkeley County'}</div></div>
+      <div class="money-val neg">${isHostHome ? 'Permanent' : isEasternPanhandle ? 'Nearby' : 'N/A'}</div>
     </div>
     <div class="money-row">
       <div class="money-label">Your personal net — what hits your wallet
@@ -1152,36 +1248,44 @@ function calc() {
   flash('money-in');
   flash('money-out');
 
-  // ── RENDER: scorecard ────────────────────────────────────
-  const waterSev  = cooling === 'evaporative'
-    ? (mw >= 500 ? 90 : 65) : (mw >= 500 ? 35 : 20);
-  const gridSev   = Math.min(wvGridPct * 1.2, 95);
-  const co2Sev    = Math.min(mw / 10, 95);
-  const noiseSev  = mw < 50 ? 30 : mw < 200 ? 55 : mw < 500 ? 75 : 90;
-  const exemptSev = exemption === 'full' ? 10 : exemption === 'partial' ? 50 : 82;
-  const strandSev = Math.min(wvGridPct * 0.9, 85);
+  // ── RENDER: blind spots ─────────────────────────────────
+  const taxGap = fullTax - tax;
+  const taxGapPct = ((1 - exemptF) * 100).toFixed(0);
 
-  const factors = [
-    ['⚡', 'Grid strain and residential rate hike',         gridSev],
-    ['💧', 'Water consumption and watershed stress',        waterSev],
-    ['\u2601', 'Carbon emissions on WV\'s coal-heavy grid', co2Sev],
-    ['🔊', 'Noise — 24/7 industrial operations',           noiseSev],
-    ['📋', 'Tax exemptions overstating headline revenue',   exemptSev],
-    ['🏚',  'Stranded infrastructure if operator exits',    strandSev],
+  const blindSpots = [
+    {
+      icon: '📋',
+      title: 'The headline tax number is inflated',
+      text: exemption !== 'full'
+        ? `Linville shows <span class="blind-spot-figure">${fmt(fullTax)}/yr</span> at full rate. With the likely ${exemptLbl}, actual revenue drops to <span class="blind-spot-figure">${fmt(tax)}/yr</span> &mdash; a <span class="blind-spot-figure">${taxGapPct}%</span> gap the headline never mentions.`
+        : 'Currently set to full rate (no exemptions). In practice, most deals include significant tax incentives that reduce the headline figure by 40&ndash;70%.',
+    },
+    {
+      icon: '🏚',
+      title: 'Stranded infrastructure if the operator exits',
+      text: `If Penzance leaves or downsizes, ratepayers are stuck with <span class="blind-spot-figure">${fmt(gridUpgradeCost)}</span> in grid upgrades built for a facility that no longer needs them. No decommissioning bond has been proposed.`,
+    },
+    {
+      icon: '🔒',
+      title: 'No public review of the application',
+      text: 'HB&nbsp;2014 shields project applications from public disclosure. The community cannot review water plans, environmental assessments, or exemption terms before permits are issued.',
+    },
+    {
+      icon: '⚖️',
+      title: 'Benefits go to the county &mdash; costs hit your wallet',
+      text: `Tax revenue funds county services (schools, roads, fire). But your electricity bill goes up by <span class="blind-spot-figure">${fmt(householdHike)}/yr</span> and your water bill by <span class="blind-spot-figure">${fmt(waterBillHike)}/yr</span>. The revenue never reaches your household directly.`,
+    },
   ];
 
-  document.getElementById('scorecard-body').innerHTML = factors.map(([icon, label, sev]) => {
-    const color = sev > 70 ? 'var(--red)' : sev > 40 ? 'var(--amber)' : 'var(--teal)';
-    const word  = sev > 70 ? 'High' : sev > 40 ? 'Med' : 'Low';
-    return `<div class="factor-row">
-      <span class="factor-icon" aria-hidden="true">${icon}</span>
-      <span class="factor-label">${label}</span>
-      <div class="factor-bar-wrap" role="presentation">
-        <div class="factor-bar" style="width:${sev}%;background:${color}"></div>
+  document.getElementById('blind-spots-body').innerHTML = blindSpots.map(s => `
+    <div class="blind-spot">
+      <span class="blind-spot-icon" aria-hidden="true">${s.icon}</span>
+      <div class="blind-spot-content">
+        <div class="blind-spot-title">${s.title}</div>
+        <div class="blind-spot-text">${s.text}</div>
       </div>
-      <span class="factor-verdict" style="color:${color}">${word}</span>
-    </div>`;
-  }).join('');
+    </div>
+  `).join('');
 
   // ── RENDER: net verdict ──────────────────────────────────
   let cls, label, sub;
