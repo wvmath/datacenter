@@ -111,9 +111,10 @@
     top: 1.5rem;
     max-height: calc(100vh - 3rem);
     overflow-y: auto;
-    background: var(--sidebar);
-    border-radius: 10px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.12), 0 8px 32px rgba(0,0,0,0.08);
+    background: linear-gradient(180deg, #1a1e2e 0%, #222838 100%);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15), 0 12px 40px rgba(0,0,0,0.10);
     scrollbar-width: thin;
     scrollbar-color: rgba(255,255,255,0.18) transparent;
   }
@@ -121,7 +122,7 @@
   .sidebar::-webkit-scrollbar { width: 4px; }
   .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.18); border-radius: 2px; }
 
-  .sidebar-inner { padding: 1rem 1.25rem; }
+  .sidebar-inner { padding: 1.5rem; }
 
   .sidebar-title {
     font-family: 'IBM Plex Mono', monospace;
@@ -129,7 +130,7 @@
     letter-spacing: 0.17em;
     text-transform: uppercase;
     color: var(--sidebar-muted);
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -142,7 +143,7 @@
     background: var(--sidebar-bdr);
   }
 
-  .input-group { margin-bottom: 0.85rem; }
+  .input-group { margin-bottom: 1.5rem; }
 
   .input-group label {
     display: block;
@@ -151,23 +152,30 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--sidebar-text);
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
   }
 
   .input-group .hint {
     font-size: 0.7rem;
     color: var(--sidebar-muted);
-    margin-top: 0.2rem;
+    margin-top: 0.375rem;
     line-height: 1.4;
     font-style: italic;
   }
 
+  .sidebar-divider {
+    height: 1px;
+    background: var(--sidebar-bdr);
+    margin: 0 -1.5rem 1.5rem;
+    padding: 0;
+  }
+
   select.sidebar-select {
     width: 100%;
-    padding: 0.45rem 2rem 0.45rem 0.65rem;
-    background: rgba(255,255,255,0.10);
-    border: 1px solid var(--sidebar-bdr);
-    border-radius: 5px;
+    padding: 0.5rem 2rem 0.5rem 0.75rem;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
     color: var(--sidebar-text);
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.88rem;
@@ -176,9 +184,14 @@
     cursor: pointer;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(255,255,255,0.55)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 0.65rem center;
-    transition: border-color 0.15s;
+    background-position: right 0.75rem center;
+    transition: border-color 0.15s, background 0.15s;
     outline: none;
+  }
+
+  select.sidebar-select:hover {
+    border-color: rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.10);
   }
 
   select.sidebar-select:focus-visible {
@@ -190,27 +203,27 @@
 
   .slider-value {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 1.15rem;
+    font-size: 1.25rem;
     font-weight: 600;
     color: #fff;
     line-height: 1;
-    margin-bottom: 0.15rem;
+    margin-bottom: 0.25rem;
   }
 
   .slider-sub {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.68rem;
     color: var(--sidebar-muted);
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
   }
 
   input[type=range] {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    height: 4px;
-    background: rgba(255,255,255,0.2);
-    border-radius: 2px;
+    height: 6px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 3px;
     outline: none;
     cursor: pointer;
     display: block;
@@ -218,26 +231,26 @@
 
   input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 18px; height: 18px;
+    width: 20px; height: 20px;
     background: #fff;
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3), 0 0 0 3px rgba(255,255,255,0.08);
   }
 
   input[type=range]::-moz-range-thumb {
-    width: 18px; height: 18px;
+    width: 20px; height: 20px;
     background: #fff;
     border-radius: 50%;
     cursor: pointer;
     border: none;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3), 0 0 0 3px rgba(255,255,255,0.08);
   }
 
   input[type=range]:focus-visible {
     outline: 2px solid rgba(255,255,255,0.65);
     outline-offset: 3px;
-    border-radius: 2px;
+    border-radius: 3px;
   }
 
   @media (hover: none) and (pointer: coarse) {
@@ -247,20 +260,20 @@
 
   .reset-btn {
     width: 100%;
-    padding: 0.55rem;
+    padding: 0.625rem;
     background: transparent;
-    border: 1px solid var(--sidebar-bdr);
-    border-radius: 5px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.75rem;
     letter-spacing: 0.05em;
     color: var(--sidebar-muted);
     cursor: pointer;
-    margin-top: 0.25rem;
-    transition: background 0.15s, color 0.15s;
+    margin-top: 0.5rem;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
   }
 
-  .reset-btn:hover { background: rgba(255,255,255,0.08); color: var(--sidebar-text); }
+  .reset-btn:hover { background: rgba(255,255,255,0.08); color: var(--sidebar-text); border-color: rgba(255,255,255,0.2); }
   .reset-btn:focus-visible { outline: 2px solid rgba(255,255,255,0.65); outline-offset: 2px; }
 
   /* ── MAIN CONTENT ────────────────────────────── */
@@ -785,8 +798,10 @@
           <select id="home-county" class="sidebar-select" onchange="calc()">
             <!-- filled by JS -->
           </select>
-          <p class="hint">Where you live — determines your share of the statewide tax distribution and your net cost.</p>
+          <p class="hint">Determines your tax share and net cost.</p>
         </div>
+
+        <div class="sidebar-divider"></div>
 
         <div class="input-group">
           <label id="gw-label" for="gw">Project size</label>
@@ -797,8 +812,10 @@
             aria-labelledby="gw-label"
             aria-valuetext="0.6 gigawatts"
             oninput="updateGW()">
-          <p class="hint">Bedington: 0.6 GW. HB 2014 threshold: 0.09 GW. Slide right to see what a larger facility would cost your community.</p>
+          <p class="hint">Bedington: 0.6 GW. HB 2014 threshold: 0.09 GW.</p>
         </div>
+
+        <div class="sidebar-divider"></div>
 
         <div class="input-group">
           <label for="cooling">Cooling method</label>
@@ -807,7 +824,7 @@
             <option value="hybrid">Hybrid</option>
             <option value="air">Air-cooled</option>
           </select>
-          <p class="hint">Water-cooled uses roughly 10&times; more water than air-cooled.</p>
+          <p class="hint">Water-cooled uses ~10x more water.</p>
         </div>
 
         <div class="input-group">
@@ -817,7 +834,7 @@
             <option value="partial" selected>Partial (~40% reduction)</option>
             <option value="heavy">Heavy (~70% reduction)</option>
           </select>
-          <p class="hint">HB 2014 allows private power grids, exempts from local zoning, and shields project details from public disclosure. The legislature rejected amendments requiring water impact assessments.</p>
+          <p class="hint">Shields project details from public disclosure.</p>
         </div>
 
         <button type="button" class="reset-btn" onclick="resetToDefaults()">
