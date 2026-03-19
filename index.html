@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WV Data Center: The Full Picture</title>
+<title>Data Center Impact Calculator — Bedington Intelligence Center</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -36,8 +36,9 @@
   body {
     background: var(--bg);
     background-image:
-      radial-gradient(circle, rgba(0,0,0,0.03) 1px, transparent 1px);
-    background-size: 24px 24px;
+      linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+    background-size: 20px 20px;
     color: var(--ink);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     min-height: 100vh;
@@ -52,44 +53,47 @@
   /* ── HEADER ─────────────────────────────────── */
 
   header {
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--border-strong);
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--ink);
     margin-bottom: 1rem;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0 1.5rem;
-  }
-
-  .eyebrow {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #4a7ab5;
-    width: 100%;
-    margin-bottom: 0.25rem;
   }
 
   h1 {
     font-family: 'Inter', sans-serif;
-    font-size: clamp(1.6rem, 3.5vw, 2.1rem);
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
     font-weight: 800;
     line-height: 1.1;
     color: var(--ink);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
   }
 
-  .h1-accent { color: var(--teal); }
+  .header-sub {
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--ink-light);
+    max-width: 640px;
+  }
+
+  .header-sub a {
+    color: var(--teal);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
 
   .thesis {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: var(--ink-light);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-faint);
     max-width: 100%;
     margin-bottom: 1rem;
+    padding: 0.6rem 0.85rem;
+    background: var(--surface);
+    border-left: 3px solid var(--border-strong);
+    border-radius: 0 4px 4px 0;
   }
 
-  .thesis strong { color: var(--ink); font-weight: 600; }
+  .thesis strong { color: var(--ink-light); font-weight: 600; }
 
   /* ── PAGE LAYOUT ─────────────────────────────── */
 
@@ -730,14 +734,11 @@
 <div class="wrapper">
 
   <header>
-    <p class="eyebrow">Bedington Campus &middot; Berkeley County, WV &middot; Community Impact</p>
-    <h1>Data Center. <span class="h1-accent">Full Picture.</span></h1>
+    <h1>Data Center Impact Calculator</h1>
+    <p class="header-sub">Economic modeling for the <a href="https://linvilleforwv.com/datacentertool/" target="_blank" rel="noopener">Bedington Intelligence Center</a> (the full picture). Adjust the parameters to calculate the net impact on West Virginia households.</p>
   </header>
 
-  <p class="thesis"><a href="https://linvilleforwv.com/datacentertool/" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:underline;text-underline-offset:2px">Delegate Linville's calculator</a> shows what your county receives.
-    <strong>This one adds what you pay</strong> — on your electricity bill, in your watershed,
-    and in the air above your neighborhood. Pre-loaded with the Penzance &ldquo;High Impact Intelligence Center&rdquo; at Bedington: $4B, 600&nbsp;MW, 548&nbsp;acres.
-    Penzance and the Commerce Department have <a href="https://www.wvgazettemail.com/news/legislative_session/morrisey-administration-penzance-wont-give-basic-berkeley-county-project-details/article_271d281d-fcf7-445e-9e3d-7763dfc7a304.html" target="_blank" rel="noopener" style="color:var(--red);text-decoration:underline;text-underline-offset:2px">refused to disclose</a> water usage plans, environmental assessments, or application materials.</p>
+  <p class="thesis">Penzance and the Commerce Department have <a href="https://www.wvgazettemail.com/news/legislative_session/morrisey-administration-penzance-wont-give-basic-berkeley-county-project-details/article_271d281d-fcf7-445e-9e3d-7763dfc7a304.html" target="_blank" rel="noopener" style="color:var(--red);text-decoration:underline;text-underline-offset:2px">refused to disclose</a> water usage plans, environmental assessments, or application materials. <strong>This calculator shows what <a href="https://linvilleforwv.com/datacentertool/" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:underline;text-underline-offset:2px">Linville's calculator</a> leaves out</strong> &mdash; what you pay on your electricity bill, in your watershed, and in the air above your neighborhood.</p>
 
   <div class="page-layout">
 
