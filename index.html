@@ -622,6 +622,19 @@
     color: #3b6ea5;
   }
 
+  .blind-spot-text a,
+  .method-item a {
+    color: var(--teal);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 1px;
+  }
+
+  .blind-spot-text a:hover,
+  .method-item a:hover {
+    color: var(--teal-light);
+  }
+
   /* ── DEMANDS ─────────────────────────────────── */
 
   .demands {
@@ -971,31 +984,31 @@
         <div class="methodology-body">
           <div class="method-item">
             <span class="method-key">Tax revenue</span>
-            <span>Matches Delegate Linville's HB&nbsp;2014 methodology: $10B/GW real property at 60% assessed value + $30B/GW equipment at 3% salvage. Average WV levy rate ~$1.80/$100 assessed. HB&nbsp;2014 distribution: 30% host county, 10% all 55 counties by population, 50% income tax relief, 5% water fund, 5% grid fund. Source: WV Legislature, WV State Tax Department FY26 levy rates.</span>
+            <span>Matches <a href="https://linvilleforwv.com/datacentertool/" target="_blank" rel="noopener">Delegate Linville's HB&nbsp;2014 methodology</a>: $10B/GW real property at 60% assessed value + $30B/GW equipment at 3% salvage. Average WV levy rate ~$1.80/$100 assessed. HB&nbsp;2014 distribution: 30% host county, 10% all 55 counties by population, 50% income tax relief, 5% water fund, 5% grid fund. Source: <a href="https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=2014&year=2025&sessiontype=RS&btype=bill" target="_blank" rel="noopener">WV Legislature HB 2014</a>, <a href="https://tax.wv.gov/Business/PropertyTax/Pages/PropertyTaxDefault.aspx" target="_blank" rel="noopener">WV State Tax Dept FY26 levy rates</a>.</span>
           </div>
           <div class="method-item">
             <span class="method-key">Income tax cut</span>
-            <span>Calibrated to Linville's ~15% reduction at 4 GW. WV personal income tax revenue base ~$2.5B/yr. The 50% income tax pool from property tax is divided by that base. Source: WV Tax Dept., Linville calculator documentation.</span>
+            <span>Calibrated to <a href="https://linvilleforwv.com/datacentertool/" target="_blank" rel="noopener">Linville's</a> ~15% reduction at 4 GW. WV personal income tax revenue base ~$2.5B/yr. The 50% income tax pool from property tax is divided by that base. Source: <a href="https://tax.wv.gov/" target="_blank" rel="noopener">WV Tax Dept</a>.</span>
           </div>
           <div class="method-item">
             <span class="method-key">Water usage</span>
-            <span>Evaporative cooling: ~2.5 liters per kWh of IT load (NRDC/Uptime Institute). Air-cooled uses ~90% less. Industry reports project regional data center growth could consume 200M gallons/day from the Potomac River by 2050. AI video generation alone uses ~30 liters (~8 gal) of cooling water per minute of video produced. Penzance has proposed using reclaimed gray water — no binding commitment exists. WV household equivalent: 250 gal/day.</span>
+            <span>Evaporative cooling: ~2.5 liters per kWh of IT load (<a href="https://www.nrdc.org/bio/sasha-stashwick/data-centers-water-use" target="_blank" rel="noopener">NRDC</a>/<a href="https://uptimeinstitute.com/" target="_blank" rel="noopener">Uptime Institute</a>). Air-cooled uses ~90% less. Industry reports project regional data center growth could consume 200M gallons/day from the Potomac River by 2050. AI video generation alone uses ~30 liters (~8 gal) of cooling water per minute of video produced. Penzance has proposed using reclaimed gray water — no binding commitment exists. WV household equivalent: 250 gal/day.</span>
           </div>
           <div class="method-item">
             <span class="method-key">CO₂</span>
-            <span>WV grid carbon intensity ~0.55 metric tons CO₂/MWh (EIA, coal-heavy mix). Cars equivalent at 4.6 metric tons/car/year (EPA average). No renewable offset assumed. Source: EIA State Energy Data System.</span>
+            <span>WV grid carbon intensity ~0.55 metric tons CO₂/MWh (<a href="https://www.eia.gov/electricity/state/westvirginia/" target="_blank" rel="noopener">EIA</a>, coal-heavy mix). Cars equivalent at 4.6 metric tons/car/year (<a href="https://www.epa.gov/greenvehicles/greenhouse-gas-emissions-typical-passenger-vehicle" target="_blank" rel="noopener">EPA</a>). No renewable offset assumed.</span>
           </div>
           <div class="method-item">
             <span class="method-key">Grid load</span>
-            <span>WV average annual generation ~80,000 GWh = ~9,100 MW equivalent average capacity. Source: EIA.</span>
+            <span>WV average annual generation ~80,000 GWh = ~9,100 MW equivalent average capacity. Source: <a href="https://www.eia.gov/electricity/state/westvirginia/" target="_blank" rel="noopener">EIA State Electricity Profile</a>.</span>
           </div>
           <div class="method-item">
             <span class="method-key">Rate hike</span>
-            <span>Total ratepayer burden estimated at ~$6M/MW. This includes direct infrastructure (transmission, Potomac Edison substation, distribution reinforcement) plus indirect cost pressure: PJM capacity auction prices have roughly tripled since 2022 due to data center demand, wholesale electricity prices rise as more generation is dispatched, and baseline rate increases already in WV rate cases compound on top. Socialized across ~800,000 WV residential accounts over 20-year amortization. AEP WV rate filings in 2024-2025 showed 15-20% increases, with data center load growth cited as a contributing factor. Household bill basis: ~$1,200/year WV average. Source: WV PSC rate cases, AEP filings, PJM capacity auction data.</span>
+            <span>Total ratepayer burden estimated at ~$6M/MW. This includes direct infrastructure (transmission, Potomac Edison substation, distribution reinforcement) plus indirect cost pressure: <a href="https://www.pjm.com/markets-and-operations/rpm" target="_blank" rel="noopener">PJM capacity auction</a> prices have roughly tripled since 2022 due to data center demand, wholesale electricity prices rise as more generation is dispatched, and baseline rate increases already in WV rate cases compound on top. Socialized across ~800,000 WV residential accounts over 20-year amortization. <a href="https://www.psc.state.wv.us/" target="_blank" rel="noopener">AEP WV rate filings</a> in 2024-2025 showed 15-20% increases, with data center load growth cited as a contributing factor. Household bill basis: ~$1,200/year WV average.</span>
           </div>
           <div class="method-item">
             <span class="method-key">Bedington Campus</span>
-            <span>Penzance Management "High Impact Intelligence Center." Announced Feb 26, 2026. $4B private capital, 0 public funding. 548 acres, 1.9M sq ft, 600+ MW critical IT capacity. Grid-connected near new Potomac Edison substation. ~1,000 construction jobs, 125+ permanent positions. HB&nbsp;2014 allows private power grids and exempts from local zoning. Construction late 2026, initial power late 2028.</span>
+            <span>Penzance Management "High Impact Intelligence Center." Announced Feb 26, 2026. $4B private capital, 0 public funding. 548 acres, 1.9M sq ft, 600+ MW critical IT capacity. Grid-connected near new Potomac Edison substation. ~1,000 construction jobs, 125+ permanent positions. <a href="https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=2014&year=2025&sessiontype=RS&btype=bill" target="_blank" rel="noopener">HB&nbsp;2014</a> allows private power grids and exempts from local zoning. Construction late 2026, initial power late 2028. Penzance has <a href="https://www.wvgazettemail.com/news/legislative_session/morrisey-administration-penzance-wont-give-basic-berkeley-county-project-details/article_271d281d-fcf7-445e-9e3d-7763dfc7a304.html" target="_blank" rel="noopener">refused to disclose</a> project details.</span>
           </div>
           <div class="method-item">
             <span class="method-key">About this tool</span>
@@ -1331,17 +1344,17 @@ function calc() {
     {
       icon: '🏚',
       title: 'Stranded infrastructure if the operator exits',
-      text: `If Penzance leaves or downsizes, ratepayers are stuck with <span class="blind-spot-figure">${fmt(gridUpgradeCost)}</span> in grid upgrades built for a facility that no longer needs them. No decommissioning bond has been proposed.`,
+      text: `If Penzance leaves or downsizes, ratepayers are stuck with <span class="blind-spot-figure">${fmt(gridUpgradeCost)}</span> in grid upgrades built for a facility that no longer needs them. No decommissioning bond has been proposed. <a href="https://www.psc.state.wv.us/" target="_blank" rel="noopener">WV PSC rate cases</a> show these costs are socialized onto residential bills.`,
     },
     {
       icon: '🔒',
       title: 'No public review of the application',
-      text: 'HB&nbsp;2014 shields project applications from public disclosure. The community cannot review water plans, environmental assessments, or exemption terms before permits are issued.',
+      text: '<a href="https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=2014&year=2025&sessiontype=RS&btype=bill" target="_blank" rel="noopener">HB&nbsp;2014</a> shields project applications from public disclosure. The community cannot review water plans, environmental assessments, or exemption terms before permits are issued. The <a href="https://www.wvgazettemail.com/news/legislative_session/morrisey-administration-penzance-wont-give-basic-berkeley-county-project-details/article_271d281d-fcf7-445e-9e3d-7763dfc7a304.html" target="_blank" rel="noopener">Commerce Department has refused</a> to release basic project details.',
     },
     {
       icon: '⚖️',
       title: 'Benefits go to the county &mdash; costs hit your wallet',
-      text: `Tax revenue funds county services (schools, roads, fire). But your electricity bill goes up by <span class="blind-spot-figure">${fmt(householdHike)}/yr</span> and your water bill by <span class="blind-spot-figure">${fmt(waterBillHike)}/yr</span>. The revenue never reaches your household directly.`,
+      text: `Tax revenue funds county services (schools, roads, fire). But your electricity bill goes up by <span class="blind-spot-figure">${fmt(householdHike)}/yr</span> and your water bill by <span class="blind-spot-figure">${fmt(waterBillHike)}/yr</span>. The revenue never reaches your household directly. See <a href="https://linvilleforwv.com/datacentertool/" target="_blank" rel="noopener">Linville's calculator</a> for the county revenue side.`,
     },
   ];
 
