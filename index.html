@@ -348,19 +348,25 @@
   }
 
   .net-verdict.risk .verdict-label      { color: var(--red); }
+  .net-verdict.risk .chevron            { stroke: var(--red); }
   .net-verdict.mixed .verdict-label     { color: var(--amber); }
+  .net-verdict.mixed .chevron           { stroke: var(--amber); }
   .net-verdict.favorable .verdict-label { color: var(--teal); }
+  .net-verdict.favorable .chevron       { stroke: var(--teal); }
 
-  .verdict-arrow {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.6rem;
-    color: var(--ink-faint);
+  .chevron {
+    width: 16px;
+    height: 16px;
     flex-shrink: 0;
     transition: transform 0.2s ease;
-    letter-spacing: 0.05em;
+    fill: none;
+    stroke: var(--ink-faint);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
-  .net-verdict[open] .verdict-arrow { transform: rotate(180deg); }
+  details[open] > summary .chevron { transform: rotate(180deg); }
 
   .verdict-sub {
     font-size: 0.85rem;
@@ -563,7 +569,17 @@
     text-transform: uppercase;
     color: var(--ink-faint);
     font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
   }
+
+  .blind-spots-header::-webkit-details-marker { display: none; }
+  .blind-spots-header:hover { background: #f0f2f5; }
+  .blind-spots-header:focus-visible { outline: 2px solid var(--teal); outline-offset: -2px; }
 
   .blind-spots-body { padding: 0.5rem 1rem 0.75rem; }
 
@@ -637,7 +653,7 @@
   .demands-header::-webkit-details-marker { display: none; }
   .demands-header:hover { background: #f0f2f5; }
   .demands-header:focus-visible { outline: 2px solid var(--teal); outline-offset: -2px; }
-  .demands[open] .demands-header .verdict-arrow { transform: rotate(180deg); }
+  .demands[open] .demands-header .chevron { transform: rotate(180deg); }
 
   .demands-body {
     padding: 0.75rem 1rem;
@@ -703,8 +719,7 @@
 
   .methodology summary:hover { background: #f0f2f5; }
   .methodology summary:focus-visible { outline: 2px solid var(--teal); outline-offset: -2px; }
-  .methodology summary::after { content: '▼'; font-size: 0.6rem; }
-  .methodology[open] summary::after { content: '▲'; }
+  .methodology summary::after { display: none; }
 
   .methodology-body {
     padding: 1rem;
@@ -890,20 +905,20 @@
       <details class="card net-verdict risk" id="net-verdict" role="status" aria-live="polite" open>
         <summary>
           <span class="verdict-label" id="verdict-label">—</span>
-          <span class="verdict-arrow" aria-hidden="true">&#9660;</span>
+          <svg class="chevron" aria-hidden="true" viewBox="0 0 16 16"><polyline points="4 6 8 10 12 6"/></svg>
         </summary>
         <p class="verdict-sub" id="verdict-sub">Configure the controls to see the assessment.</p>
       </details>
 
       <!-- Blind spots -->
-      <div class="blind-spots">
-        <div class="blind-spots-header">What Linville's calculator leaves out</div>
+      <details class="blind-spots" open>
+        <summary class="blind-spots-header">What Linville's calculator leaves out <svg class="chevron" aria-hidden="true" viewBox="0 0 16 16"><polyline points="4 6 8 10 12 6"/></svg></summary>
         <div class="blind-spots-body" id="blind-spots-body"></div>
-      </div>
+      </details>
 
       <!-- What to demand -->
       <details class="demands" open>
-        <summary class="demands-header">Before any permit moves forward &mdash; six things to demand in writing <span class="verdict-arrow" aria-hidden="true" style="color:rgba(255,255,255,0.35)">&#9660;</span></summary>
+        <summary class="demands-header">Before any permit moves forward &mdash; six things to demand in writing <svg class="chevron" aria-hidden="true" viewBox="0 0 16 16"><polyline points="4 6 8 10 12 6"/></svg></summary>
         <div class="demands-body">
           <div class="demand">
             <div class="demand-n">01</div>
@@ -952,7 +967,7 @@
 
       <!-- Methodology -->
       <details class="methodology" open>
-        <summary>Methodology &amp; sources</summary>
+        <summary>Methodology &amp; sources <svg class="chevron" aria-hidden="true" viewBox="0 0 16 16"><polyline points="4 6 8 10 12 6"/></svg></summary>
         <div class="methodology-body">
           <div class="method-item">
             <span class="method-key">Tax revenue</span>
