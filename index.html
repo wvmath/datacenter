@@ -298,12 +298,12 @@
     border-left-style: solid;
   }
 
-  .net-verdict.risk      { border-left-color: var(--red); }
-  .net-verdict.risk summary { background: var(--red-pale); border-bottom-color: var(--red-light); }
-  .net-verdict.mixed     { border-left-color: var(--amber); }
-  .net-verdict.mixed summary { background: var(--amber-pale); border-bottom-color: var(--amber-light); }
-  .net-verdict.favorable { border-left-color: var(--teal); }
-  .net-verdict.favorable summary { background: var(--teal-pale); border-bottom-color: var(--teal-light); }
+  .net-verdict.risk      { border-left-color: var(--red); background: var(--red-pale); }
+  .net-verdict.risk summary { background: rgba(201,53,53,0.08); border-bottom-color: var(--red-light); }
+  .net-verdict.mixed     { border-left-color: var(--amber); background: var(--amber-pale); }
+  .net-verdict.mixed summary { background: rgba(176,125,26,0.08); border-bottom-color: var(--amber-light); }
+  .net-verdict.favorable { border-left-color: var(--teal); background: var(--teal-pale); }
+  .net-verdict.favorable summary { background: rgba(79,160,149,0.08); border-bottom-color: var(--teal-light); }
 
   .net-verdict summary {
     padding: 0.6rem 1rem;
