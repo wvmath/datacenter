@@ -895,7 +895,7 @@
           <div class="slider-value" id="gw-display" aria-live="polite">0.6 GW</div>
           <div class="slider-sub" id="gw-sub">600 MW &middot; Penzance proposal ($4B announced)</div>
           <input type="range" id="gw"
-            min="0.1" max="1.5" step="0.1" value="0.6"
+            min="0" max="1.5" step="0.1" value="0.6"
             aria-labelledby="gw-label"
             aria-valuetext="0.6 gigawatts"
             oninput="updateGW()">
@@ -1196,14 +1196,16 @@ function populateDropdowns() {
 function updateGW() {
   const gw  = parseFloat(document.getElementById('gw').value);
   const mw  = Math.round(gw * 1000);
-  document.getElementById('gw-display').textContent = gw.toFixed(1) + ' GW';
-  // Show Penzance context at default, generic MW at other values
+  const isZero = gw < 0.05;
   const isPenzance = Math.abs(gw - 0.6) < 0.05;
-  document.getElementById('gw-sub').textContent = isPenzance
-    ? '600 MW \u00b7 Bedington Campus ($4B, 548 acres)'
-    : mw.toLocaleString() + ' MW';
+  document.getElementById('gw-display').textContent = isZero ? '0 GW' : gw.toFixed(1) + ' GW';
+  document.getElementById('gw-sub').textContent = isZero
+    ? 'No facility \u2014 baseline'
+    : isPenzance
+      ? '600 MW \u00b7 Bedington Campus ($4B, 548 acres)'
+      : mw.toLocaleString() + ' MW';
   document.getElementById('gw').setAttribute(
-    'aria-valuetext', gw.toFixed(1) + ' gigawatts');
+    'aria-valuetext', isZero ? 'no data center' : gw.toFixed(1) + ' gigawatts');
   calc();
 }
 
