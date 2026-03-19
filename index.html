@@ -267,27 +267,51 @@
 
   .main-content { min-width: 0; }
 
+  /* ── SHARED CARD SHELL ───────────────────────── */
+
+  .card {
+    background: var(--surface);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  }
+
+  .card-header {
+    padding: 0.6rem 1rem;
+    background: var(--surface-alt);
+    border-bottom: 1px solid var(--border);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--ink-faint);
+  }
+
+  .card-body { padding: 0.5rem 1rem 0.75rem; }
+
   /* ── NET VERDICT ─────────────────────────────── */
 
   .net-verdict {
-    border-radius: 6px;
-    margin-bottom: 0.75rem;
-    border: 1px solid;
     border-left-width: 4px;
+    border-left-style: solid;
   }
 
-  .net-verdict.risk     { background: var(--red-pale);   border-color: var(--red-light);   border-left-color: var(--red); }
-  .net-verdict.mixed    { background: var(--amber-pale);  border-color: var(--amber-light);  border-left-color: var(--amber); }
-  .net-verdict.favorable{ background: var(--teal-pale);   border-color: var(--teal-light);   border-left-color: var(--teal); }
+  .net-verdict.risk      { border-left-color: var(--red); }
+  .net-verdict.mixed     { border-left-color: var(--amber); }
+  .net-verdict.favorable { border-left-color: var(--teal); }
 
   .net-verdict summary {
-    padding: 0.45rem 0.75rem;
+    padding: 0.6rem 1rem;
     cursor: pointer;
     list-style: none;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     user-select: none;
+    background: var(--surface-alt);
+    border-bottom: 1px solid var(--border);
   }
 
   .net-verdict summary::-webkit-details-marker { display: none; }
@@ -295,17 +319,21 @@
   .net-verdict summary:focus-visible {
     outline: 2px solid var(--ink-faint);
     outline-offset: -2px;
-    border-radius: 5px;
+    border-radius: 10px;
   }
 
   .verdict-label {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 700;
-    line-height: 1.2;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
     flex: 1;
-    color: var(--ink);
   }
+
+  .net-verdict.risk .verdict-label      { color: var(--red); }
+  .net-verdict.mixed .verdict-label     { color: var(--amber); }
+  .net-verdict.favorable .verdict-label { color: var(--teal); }
 
   .verdict-arrow {
     font-family: 'IBM Plex Mono', monospace;
@@ -323,7 +351,7 @@
     color: var(--ink-light);
     line-height: 1.5;
     max-width: 620px;
-    padding: 0 0.75rem 0.6rem;
+    padding: 0.5rem 1rem 0.75rem;
   }
 
   /* ── ENVIRONMENTAL CARDS ─────────────────────── */
@@ -441,23 +469,24 @@
 
   .money-panel {
     background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.03);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
   }
 
   .money-header {
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1rem;
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.7rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     font-weight: 600;
+    background: var(--surface-alt);
+    border-bottom: 1px solid var(--border);
+    color: var(--ink-faint);
   }
 
-  .money-header.in  { background: #f0f3f8;  color: #3a4a62; border-bottom: 2px solid #c5d0e0; }
-  .money-header.out { background: var(--red-pale);   color: var(--red);  border-bottom: 2px solid var(--red-light); }
+  .money-header.out { color: var(--red); }
 
   .money-body { padding: 0.25rem 1rem 0.5rem; }
 
@@ -502,22 +531,21 @@
 
   .blind-spots {
     background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
     margin-bottom: 0.75rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.03);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
   }
 
   .blind-spots-header {
-    padding: 0.5rem 1rem;
-    background: #f0f3f8;
-    border-bottom: 2px solid #c5d0e0;
+    padding: 0.6rem 1rem;
+    background: var(--surface-alt);
+    border-bottom: 1px solid var(--border);
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.7rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: #4a6a94;
+    color: var(--ink-faint);
     font-weight: 600;
   }
 
@@ -565,35 +593,38 @@
   /* ── DEMANDS ─────────────────────────────────── */
 
   .demands {
-    background: #253249;
-    border-radius: 6px;
+    background: var(--surface);
+    border-radius: 12px;
     overflow: hidden;
     margin-bottom: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
   }
 
   .demands-header {
-    padding: 0.5rem 1.25rem;
+    padding: 0.6rem 1rem;
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.7rem;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.45);
+    color: var(--ink-faint);
+    font-weight: 600;
     cursor: pointer;
     list-style: none;
     display: flex;
     align-items: center;
     justify-content: space-between;
     user-select: none;
+    background: var(--surface-alt);
+    border-bottom: 1px solid var(--border);
   }
 
   .demands-header::-webkit-details-marker { display: none; }
-  .demands-header:hover { background: rgba(255,255,255,0.04); }
-  .demands-header:focus-visible { outline: 2px solid rgba(255,255,255,0.5); outline-offset: -2px; }
-  .demands[open] .demands-header { border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .demands-header:hover { background: #f0f2f5; }
+  .demands-header:focus-visible { outline: 2px solid var(--teal); outline-offset: -2px; }
   .demands[open] .demands-header .verdict-arrow { transform: rotate(180deg); }
 
   .demands-body {
-    padding: 0.75rem 1.25rem;
+    padding: 0.75rem 1rem;
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
@@ -605,8 +636,7 @@
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.78rem;
     font-weight: 600;
-    color: #7ba3cc;
-    opacity: 0.85;
+    color: var(--teal);
     width: 1.5rem;
     flex-shrink: 0;
     padding-top: 0.1rem;
@@ -618,13 +648,13 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.07em;
-    color: #fff;
+    color: var(--ink);
     margin-bottom: 0.1rem;
   }
 
   .demand-text {
     font-size: 0.85rem;
-    color: rgba(255,255,255,0.58);
+    color: var(--ink-light);
     line-height: 1.45;
   }
 
@@ -632,19 +662,18 @@
 
   .methodology {
     background: var(--surface);
-    border: 1px solid var(--border-strong);
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
   }
 
   .methodology summary {
-    padding: 1rem 1.25rem;
+    padding: 0.6rem 1rem;
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.78rem;
-    letter-spacing: 0.15em;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: #4a6a94;
+    color: var(--ink-faint);
     cursor: pointer;
     list-style: none;
     display: flex;
@@ -652,28 +681,28 @@
     justify-content: space-between;
     font-weight: 600;
     user-select: none;
+    background: var(--surface-alt);
+    border-bottom: 1px solid var(--border);
   }
 
-  .methodology summary:hover { background: #e8edf5; }
+  .methodology summary:hover { background: #f0f2f5; }
   .methodology summary:focus-visible { outline: 2px solid var(--teal); outline-offset: -2px; }
   .methodology summary::after { content: '▼'; font-size: 0.6rem; }
   .methodology[open] summary::after { content: '▲'; }
 
   .methodology-body {
-    padding: 1.25rem;
-    border-top: 1px solid var(--border-strong);
-    background: var(--surface-alt);
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
-  .method-item { display: flex; gap: 1rem; font-size: 0.92rem; color: var(--ink-light); line-height: 1.6; }
+  .method-item { display: flex; gap: 1rem; font-size: 0.88rem; color: var(--ink-light); line-height: 1.6; }
   .method-key {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     font-weight: 600;
-    color: #4a6a94;
+    color: var(--ink-faint);
     white-space: nowrap;
     min-width: 110px;
     padding-top: 0.1rem;
@@ -838,7 +867,7 @@
       </div>
 
       <!-- Net verdict -->
-      <details class="net-verdict risk" id="net-verdict" role="status" aria-live="polite" open>
+      <details class="card net-verdict risk" id="net-verdict" role="status" aria-live="polite" open>
         <summary>
           <span class="verdict-label" id="verdict-label">—</span>
           <span class="verdict-arrow" aria-hidden="true">&#9660;</span>
